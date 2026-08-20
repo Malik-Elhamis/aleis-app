@@ -1,0 +1,40 @@
+{
+  "expo": {
+    "name": "مجلس بلدية العيس",
+    "slug": "aleis-municipality-app",
+    "version": "1.0.0",
+    "jsEngine": "jsc",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.aleis.municipality",
+      "infoPlist": {
+        "NSCameraUsageDescription": "يحتاج التطبيق للوصول إلى الكاميرا لإلتقاط صور البلاغات والشكاوى.",
+        "NSPhotoLibraryUsageDescription": "يحتاج التطبيق للوصول إلى مكتبة الصور لإرفاق صور البلاغات والشكاوى.",
+        "NSLocationWhenInUseUsageDescription": "يحتاج التطبيق لتحديد موقعك لتحديد موقع البلاغ على الخريطة."
+      }
+    },
+    "android": {
+      "package": "com.aleis.municipality",
+      "permissions": [
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "CALL_PHONE"
+      ]
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "السماح بالوصول إلى الصور لإرفاقها بالبلاغ",
+          "cameraPermission": "السماح بالوصول إلى الكاميرا لالتقاط صورة البلاغ"
+        }
+      ],
+      "expo-font",
+      "expo-web-browser"
+    ]
+  }
+}
