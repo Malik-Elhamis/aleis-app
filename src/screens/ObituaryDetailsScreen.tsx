@@ -82,7 +82,7 @@ export const ObituaryDetailsScreen: React.FC<any> = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: COLORS.background },
   header: { 
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse', 
+    flexDirection: 'row', 
     alignItems: 'center', 
     justifyContent: 'space-between',
     paddingTop: 60,
@@ -106,8 +106,8 @@ const styles = StyleSheet.create({
   deceasedName: { fontSize: 26, fontWeight: '900', color: COLORS.textPrimary, textAlign: 'center' },
 
   detailsBox: { backgroundColor: COLORS.surface, borderRadius: 16, padding: 20, gap: 16, marginBottom: 40 },
-  detailRow: { flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse', alignItems: 'flex-start', gap: 12 },
-  detailText: { fontSize: 16, color: COLORS.textPrimary, textAlign: 'right', flex: 1, lineHeight: 24 },
+  detailRow: { flexDirection: 'row', alignItems: 'flex-start', gap: 12 },
+  detailText: { fontSize: 16, color: COLORS.textPrimary, textAlign: 'left', flex: 1, lineHeight: 24 },
   boldLabel: { fontWeight: '800', color: COLORS.primary },
 
   footerSection: { 

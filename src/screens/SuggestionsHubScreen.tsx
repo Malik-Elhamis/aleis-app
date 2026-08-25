@@ -72,7 +72,7 @@ export const SuggestionsHubScreen: React.FC = () => {
           placeholder="إذا أردت، اكتب اسمك ليظهر مع المقترح"
           value={authorName}
           onChangeText={setAuthorName}
-          textAlign="right"
+          textAlign="left"
         />
 
         <Text style={styles.label}>عنوان المقترح *</Text>
@@ -81,7 +81,7 @@ export const SuggestionsHubScreen: React.FC = () => {
           placeholder="مثال: حديقة عامة، تحسين طريق..."
           value={title}
           onChangeText={setTitle}
-          textAlign="right"
+          textAlign="left"
         />
 
         <Text style={styles.label}>تفاصيل وفكرة المقترح *</Text>
@@ -90,7 +90,7 @@ export const SuggestionsHubScreen: React.FC = () => {
           placeholder="اشرح فكرة المقترح والفوائد التي سيقدمها للبلدة..."
           value={description}
           onChangeText={setDescription}
-          textAlign="right"
+          textAlign="left"
           multiline
           numberOfLines={5}
         />
@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
   headerTitle: { fontSize: 24, fontWeight: '900', color: '#7E22CE', marginBottom: 8 },
   headerSub: { fontSize: 14, color: '#6B7280', textAlign: 'center', lineHeight: 22, paddingHorizontal: 10 },
   
-  tabsContainer: { flexDirection: 'row-reverse', backgroundColor: '#FFF', elevation: 2, zIndex: 10 },
+  tabsContainer: { flexDirection: 'row', backgroundColor: '#FFF', elevation: 2, zIndex: 10 },
   tab: { flex: 1, paddingVertical: 16, alignItems: 'center', borderBottomWidth: 3, borderBottomColor: 'transparent' },
   activeTab: { borderBottomColor: '#9333EA' },
   tabText: { fontSize: 15, fontWeight: '700', color: COLORS.textSecondary },
@@ -197,10 +197,10 @@ const styles = StyleSheet.create({
   // Form Styles
   scrollContent: { padding: SPACING.lg, paddingBottom: 100 },
   formContainer: { backgroundColor: COLORS.surface, borderRadius: 16, padding: 20 },
-  label: { fontSize: 16, fontWeight: '700', color: COLORS.textPrimary, marginBottom: 8, textAlign: 'right' },
+  label: { fontSize: 16, fontWeight: '700', color: COLORS.textPrimary, marginBottom: 8, textAlign: 'left' },
   input: { backgroundColor: '#F9FAFB', borderWidth: 1, borderColor: COLORS.border, borderRadius: 12, padding: 16, fontSize: 15, marginBottom: 20 },
   textArea: { height: 120, textAlignVertical: 'top' },
-  submitButton: { backgroundColor: '#9333EA', flexDirection: 'row-reverse', justifyContent: 'center', alignItems: 'center', padding: 16, borderRadius: 12, gap: 10, marginTop: 10 },
+  submitButton: { backgroundColor: '#9333EA', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', padding: 16, borderRadius: 12, gap: 10, marginTop: 10 },
   submitButtonDisabled: { opacity: 0.7 },
   submitButtonText: { color: '#FFF', fontSize: 18, fontWeight: '800' },
 
@@ -211,12 +211,12 @@ const styles = StyleSheet.create({
   emptySub: { marginTop: 8, fontSize: 14, color: COLORS.textMuted },
   
   suggestionCard: { backgroundColor: COLORS.surface, borderRadius: 16, padding: 20, marginBottom: 16, borderRightWidth: 4, borderRightColor: '#9333EA' },
-  cardHeaderRow: { flexDirection: 'row-reverse', alignItems: 'center', gap: 10, marginBottom: 12 },
-  cardTitle: { fontSize: 18, fontWeight: '800', color: COLORS.textPrimary, flex: 1, textAlign: 'right' },
-  cardDesc: { fontSize: 14, color: COLORS.textSecondary, textAlign: 'right', lineHeight: 22, marginBottom: 12 },
-  authorText: { fontSize: 13, color: '#9333EA', textAlign: 'right', fontWeight: '700', marginBottom: 16 },
+  cardHeaderRow: { flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 12 },
+  cardTitle: { fontSize: 18, fontWeight: '800', color: COLORS.textPrimary, flex: 1, textAlign: 'left' },
+  cardDesc: { fontSize: 14, color: COLORS.textSecondary, textAlign: 'left', lineHeight: 22, marginBottom: 12 },
+  authorText: { fontSize: 13, color: '#9333EA', textAlign: 'left', fontWeight: '700', marginBottom: 16 },
   
-  cardFooterRow: { flexDirection: 'row-reverse', justifyContent: 'space-between', alignItems: 'center', borderTopWidth: 1, borderTopColor: COLORS.border, paddingTop: 12 },
+  cardFooterRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderTopWidth: 1, borderTopColor: COLORS.border, paddingTop: 12 },
   dateText: { fontSize: 13, color: COLORS.textMuted },
   approvedBadge: { backgroundColor: '#D1FAE5', paddingHorizontal: 12, paddingVertical: 4, borderRadius: 12 },
   approvedBadgeText: { color: '#059669', fontSize: 12, fontWeight: '700' }

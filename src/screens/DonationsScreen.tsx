@@ -70,9 +70,9 @@ const styles = StyleSheet.create({
   
   content: { padding: SPACING.lg, paddingTop: 32, gap: 16 },
 
-  navCard: { flexDirection: 'row-reverse', alignItems: 'center', backgroundColor: '#FFF', borderRadius: 16, padding: 16, ...SHADOWS.medium, borderWidth: 1, borderColor: COLORS.border },
-  iconContainer: { width: 64, height: 64, borderRadius: 32, backgroundColor: '#ECFDF5', alignItems: 'center', justifyContent: 'center', marginLeft: 16 },
-  cardTextContainer: { flex: 1, alignItems: 'flex-end' },
-  cardTitle: { fontSize: 18, fontWeight: '800', color: COLORS.textPrimary, marginBottom: 4 },
-  cardDesc: { fontSize: 14, color: COLORS.textSecondary, textAlign: 'right', lineHeight: 20 },
+  navCard: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#FFF', borderRadius: 16, padding: 16, ...SHADOWS.medium, borderWidth: 1, borderColor: COLORS.border, gap: 16 },
+  iconContainer: { width: 64, height: 64, borderRadius: 32, backgroundColor: '#ECFDF5', alignItems: 'center', justifyContent: 'center' },
+  cardTextContainer: { flex: 1, alignItems: 'flex-start' },
+  cardTitle: { fontSize: 18, fontWeight: '800', color: COLORS.textPrimary, marginBottom: 4, textAlign: 'left' },
+  cardDesc: { fontSize: 14, color: COLORS.textSecondary, textAlign: 'left', lineHeight: 20 },
 });

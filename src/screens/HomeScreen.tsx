@@ -20,84 +20,105 @@ const { width, height } = Dimensions.get('window');
 const HERO_HEIGHT = height * 0.32; 
 const LOGO_SIZE = 100;
 
-// --- Design Tokens (Modern Civic Soft UI) ---
-const TOKENS = {
-  PrimaryGreen: '#0F7A5A',
-  PrimarySoft: '#EAF7F1',
-  SecondaryGreen: '#36A77B',
-  WarmBackground: '#FAF8F3',
-  CardBackground: '#FFFFFF',
-  AccentRed: '#E34A4A',
-  Charcoal: '#273036',
-  CharcoalLight: '#343E44',
-  
-  // Section Backgrounds for Subtle Flag Representation
-  BgGreenSection: '#F4FBF7',
-  BgStarSection: '#FFF9F9',
-  BgDarkSection: '#F3F4F5',
+// Animated Section Title Component
+const SectionTitle = ({ title }: { title: string }) => {
+  const pulseAnim = useRef(new Animated.Value(0.4)).current;
+
+  useEffect(() => {
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(pulseAnim, {
+          toValue: 1,
+          duration: 1500,
+          useNativeDriver: true,
+        }),
+        Animated.timing(pulseAnim, {
+          toValue: 0.4,
+          duration: 1500,
+          useNativeDriver: true,
+        })
+      ])
+    ).start();
+  }, [pulseAnim]);
+
+  return (
+    <View style={styles.groupHeader}>
+      <View style={styles.decorContainer}>
+        <LinearGradient
+          colors={['transparent', '#D4A93A']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
+          style={styles.gradientLine}
+        />
+        <Animated.View style={[styles.diamond, { opacity: pulseAnim }]} />
+        <View style={[styles.diamond, styles.diamondSmall]} />
+      </View>
+      
+      <Text style={styles.groupTitle}>{title}</Text>
+      
+      <View style={styles.decorContainer}>
+        <View style={[styles.diamond, styles.diamondSmall]} />
+        <Animated.View style={[styles.diamond, { opacity: pulseAnim }]} />
+        <LinearGradient
+          colors={['#D4A93A', 'transparent']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
+          style={styles.gradientLine}
+        />
+      </View>
+    </View>
+  );
 };
 
 const ALL_SERVICES = [
-  // --- Group 1: Green (1 to 6) ---
-  { id: '1', title: 'أخبار البلدية', icon: 'newspaper-outline', route: 'NewsHub' },
-  { id: '2', title: 'خدمات إلكترونية', icon: 'desktop-outline', route: 'Services' },
-  { id: '3', title: 'خدمات المياه', icon: 'water-outline', route: 'WaterHub' },
-  { id: '4', title: 'الكهرباء', icon: 'flash-outline', route: 'ElectricityHub' },
-  { id: '5', title: 'المشاريع', icon: 'construct-outline', route: 'Projects' },
-  { id: '6', title: 'النظافة', icon: 'leaf-outline', route: 'CleanlinessHub' },
-
-  // --- Group 2: Red Stars (7 to 9) ---
-  { id: '7', title: 'شكاوى ومخالفات', icon: 'warning-outline', route: 'ComplaintsViolationsHub' },
-  { id: '8', title: 'اقتراحات', icon: 'bulb-outline', route: 'SuggestionsHub' },
-  { id: '9', title: 'دليل العيس', icon: 'location-outline', route: 'Aleis' },
-
-  // --- Group 3: Dark/Black (10 to 15) ---
-  { id: '10', title: 'حالات إنسانية', icon: 'people-outline', route: 'Humanitarian' },
-  { id: 'dn', title: 'تبرعات', icon: 'heart-outline', route: 'Donations' },
-  { id: '11', title: 'وفيات', icon: 'moon-outline', route: 'Obituaries' },
-  { id: '12', title: 'مجلس البلدية', icon: 'business-outline', route: 'Council' },
-  { id: '14', title: 'اسأل البلدية', icon: 'chatbubbles-outline', route: 'AskMunicipalityHub' },
-  { id: '15', title: 'طوارئ', icon: 'call-outline', route: 'Emergency' },
+  { id: '1', title: 'أخبار البلدية', subtitle: 'آخر الأخبار والفعاليات', icon: 'newspaper-outline', route: 'NewsHub', color: '#1E8E5A' },
+  { id: '2', title: 'خدمات إلكترونية', subtitle: 'بوابة الخدمات', icon: 'desktop-outline', route: 'Services', color: '#3B82F6' },
+  { id: '3', title: 'خدمات المياه', subtitle: 'الضخ والصيانة', icon: 'water-outline', route: 'WaterHub', color: '#2D9CDB' },
+  { id: '4', title: 'الكهرباء', subtitle: 'الأعطال والتقنين', icon: 'flash-outline', route: 'ElectricityHub', color: '#F2B93B' },
+  { id: '5', title: 'المشاريع', subtitle: 'مشاريع البلدية', icon: 'construct-outline', route: 'Projects', color: '#4CAF50' },
+  { id: '6', title: 'النظافة', subtitle: 'إدارة النفايات', icon: 'leaf-outline', route: 'CleanlinessHub', color: '#38B48B' },
+  { id: '7', title: 'شكاوى ومخالفات', subtitle: 'صوتك مسموع', icon: 'warning-outline', route: 'ComplaintsViolationsHub', color: '#E85D5D' },
+  { id: '8', title: 'اقتراحات', subtitle: 'أفكار للتطوير', icon: 'bulb-outline', route: 'SuggestionsHub', color: '#8B6CEB' },
+  { id: '14', title: 'اسأل البلدية', subtitle: 'استفسارات عامة', icon: 'chatbubbles-outline', route: 'AskMunicipalityHub', color: '#14B8A6' },
+  { id: '10', title: 'حالات إنسانية', subtitle: 'دعم ومساندة', icon: 'people-outline', route: 'Humanitarian', color: '#E97AAE' },
+  { id: 'dn', title: 'تبرعات', subtitle: 'مساهمة مجتمعية', icon: 'heart-outline', route: 'Donations', color: '#29B36B' },
+  { id: '11', title: 'وفيات', subtitle: 'تعازي ومواساة', icon: 'moon-outline', route: 'Obituaries', color: '#6B7280' },
+  { id: '12', title: 'مجلس البلدية', subtitle: 'أعضاء وقرارات', icon: 'business-outline', route: 'Council', color: '#F59E0B' },
+  { id: '9', title: 'دليل العيس', subtitle: 'أماكن وأرقام', icon: 'location-outline', route: 'Aleis', color: '#4A90E2' },
+  { id: '15', title: 'طوارئ', subtitle: 'أرقام هامة', icon: 'call-outline', route: 'Emergency', color: '#E53935' },
 ];
+
+// Combine hex color with opacity correctly
+const hexToRgba = (hex: string, opacity: number) => {
+  let c = hex.substring(1).split('');
+  if(c.length === 3){
+    c = [c[0], c[0], c[1], c[1], c[2], c[2]];
+  }
+  const colorCode = parseInt(c.join(''), 16);
+  return `rgba(${(colorCode >> 16) & 255}, ${(colorCode >> 8) & 255}, ${colorCode & 255}, ${opacity})`;
+};
 
 const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpacity);
 
-const ServiceCard = ({ item, themeGroup, onPress }: { item: any, themeGroup: 'green'|'star'|'dark', onPress: (route: string) => void }) => {
+const ROW_COLORS = [
+  '#DDF2EA', // الصف الأول
+  '#DCEBFA', // الصف الثاني
+  '#F3E1F2', // الصف الثالث
+  '#E4EEE7', // الصف الرابع
+  '#F5EAD6', // الصف الخامس
+];
+
+const ServiceCard = ({ item, index, onPress }: { item: typeof ALL_SERVICES[0], index: number, onPress: (route: string) => void }) => {
   const scaleAnim = useRef(new Animated.Value(1)).current;
+  const rowIndex = Math.floor(index / 3);
+  const rowColor = ROW_COLORS[rowIndex % ROW_COLORS.length];
 
   const handlePressIn = () => {
-    Animated.timing(scaleAnim, { toValue: 0.97, duration: 120, useNativeDriver: true }).start();
+    Animated.timing(scaleAnim, { toValue: 0.95, duration: 120, useNativeDriver: true }).start();
   };
   const handlePressOut = () => {
     Animated.timing(scaleAnim, { toValue: 1, duration: 150, useNativeDriver: true }).start();
   };
-
-  let isDark = themeGroup === 'dark';
-  let isStar = themeGroup === 'star';
-  
-  let iconColor = isDark ? '#FFFFFF' : (isStar ? TOKENS.Charcoal : TOKENS.PrimaryGreen);
-  let textColor = isDark ? '#FFFFFF' : TOKENS.Charcoal;
-  let iconBgColor = isDark ? 'rgba(255,255,255,0.08)' : (isStar ? 'transparent' : TOKENS.PrimarySoft);
-
-  const CardContent = () => (
-    <View style={styles.cardContentWrapper}>
-      {isDark ? null : <View style={styles.lightInnerHighlight} />}
-      <View style={[styles.iconContainer, { backgroundColor: iconBgColor }]}>
-        {isStar && (
-          <Ionicons 
-            name="star" 
-            size={60} 
-            color={TOKENS.AccentRed} 
-            style={styles.starBg} 
-          />
-        )}
-        <Ionicons name={item.icon as any} size={28} color={iconColor} />
-      </View>
-      <Text style={[styles.cardTitle, { color: textColor }]} numberOfLines={2}>
-        {item.title}
-      </Text>
-    </View>
-  );
 
   return (
     <AnimatedTouchableOpacity
@@ -107,33 +128,38 @@ const ServiceCard = ({ item, themeGroup, onPress }: { item: any, themeGroup: 'gr
       onPress={() => onPress(item.route)}
       style={[styles.cardBase, { transform: [{ scale: scaleAnim }] }]}
     >
-      {isDark ? (
-        <LinearGradient
-          colors={[TOKENS.Charcoal, TOKENS.CharcoalLight]}
-          style={styles.gradientCard}
+      {/* Soft colored curved top section based on Row Index */}
+      <View style={[styles.topCurve, { backgroundColor: rowColor }]} />
+      
+      {/* Icon Circle overlapping the curve */}
+      <View style={styles.iconCircleWrapper}>
+        <LinearGradient 
+          colors={[item.color, hexToRgba(item.color, 0.85)]} 
+          style={styles.iconGradient}
           start={{ x: 0, y: 0 }}
-          end={{ x: 0, y: 1 }}
+          end={{ x: 1, y: 1 }}
         >
-          <View style={styles.innerHighlight} />
-          <CardContent />
+          <Ionicons name={item.icon as any} size={24} color="#FFFFFF" />
         </LinearGradient>
-      ) : (
-        <View style={styles.lightCard}>
-          <CardContent />
-        </View>
-      )}
+      </View>
+
+      {/* Texts */}
+      <View style={styles.textContainer}>
+        <Text style={styles.cardTitle} numberOfLines={1}>{item.title}</Text>
+        <Text style={styles.cardSubtitle} numberOfLines={2}>{item.subtitle}</Text>
+      </View>
+
     </AnimatedTouchableOpacity>
   );
 };
 
 export const HomeScreen: React.FC<any> = ({ navigation }) => {
-  const [alerts, setAlerts] = useState<UrgentAlert[]>([]);
   const [sliderImages, setSliderImages] = useState<string[]>([]);
   const [logoUrl, setLogoUrl] = useState<string | null>(null);
   const scrollY = useRef(new Animated.Value(0)).current;
+  const insets = useSafeAreaInsets();
 
   useEffect(() => {
-    loadAlerts();
     let unsubs: Function[] = [];
     import('../services/firestoreService').then(({ subscribeHomeSliderSettings, subscribeAppSettings }) => {
       const unsubSlider = subscribeHomeSliderSettings((data) => {
@@ -156,11 +182,6 @@ export const HomeScreen: React.FC<any> = ({ navigation }) => {
     return () => unsubs.forEach(u => u());
   }, []);
 
-  const loadAlerts = async () => {
-    const data = await getUrgentAlerts();
-    setAlerts(data);
-  };
-
   const handlePress = (route: string | null) => {
     if (route) navigation.navigate(route);
   };
@@ -180,37 +201,33 @@ export const HomeScreen: React.FC<any> = ({ navigation }) => {
           heroHeight={HERO_HEIGHT} 
         />
 
-        {/* --- Civic Soft UI Flag Sections --- */}
-        <View style={styles.sectionsContainer}>
+        {/* Modern Civic Cards Grid Grouped */}
+        <View style={[styles.sectionsContainer, { paddingBottom: Math.max(insets.bottom + 140, 160) }]}>
           
-          {/* Green Section */}
-          <View style={[styles.sectionBlock, { backgroundColor: TOKENS.BgGreenSection, paddingTop: (LOGO_SIZE / 2) + 16 }]}>
-            <View style={styles.gridRow}>
-              {ALL_SERVICES.slice(0, 6).map((item) => (
-                <ServiceCard key={item.id} item={item} themeGroup="green" onPress={handlePress} />
-              ))}
-            </View>
+          {/* Decorative City Name */}
+          <View style={styles.cityDecorationContainer}>
+            <Text style={styles.cityDecorationText}>العيـــــــس</Text>
           </View>
 
-          {/* White/Star Section */}
-          <View style={[styles.sectionBlock, { backgroundColor: TOKENS.BgStarSection }]}>
-            <View style={styles.gridRow}>
-              {ALL_SERVICES.slice(6, 9).map((item) => (
-                <ServiceCard key={item.id} item={item} themeGroup="star" onPress={handlePress} />
-              ))}
+          {[
+            { title: 'الخدمات الأساسية', items: ALL_SERVICES.slice(0, 6), startIndex: 0 },
+            { title: 'التفاعل مع البلدية', items: ALL_SERVICES.slice(6, 9), startIndex: 6 },
+            { title: 'خدمات المجتمع', items: ALL_SERVICES.slice(9, 15), startIndex: 9 }
+          ].map((group, groupIndex) => (
+            <View key={groupIndex} style={styles.groupContainer}>
+              <SectionTitle title={group.title} />
+              <View style={styles.gridRow}>
+                {group.items.map((item, localIndex) => {
+                  const absoluteIndex = group.startIndex + localIndex;
+                  return (
+                    <ServiceCard key={item.id} item={item} index={absoluteIndex} onPress={handlePress} />
+                  );
+                })}
+              </View>
             </View>
-          </View>
-
-          {/* Dark Section */}
-          <View style={[styles.sectionBlock, { backgroundColor: TOKENS.BgDarkSection, paddingBottom: 60 }]}>
-            <View style={styles.gridRow}>
-              {ALL_SERVICES.slice(9, 15).map((item) => (
-                <ServiceCard key={item.id} item={item} themeGroup="dark" onPress={handlePress} />
-              ))}
-            </View>
-          </View>
-
+          ))}
         </View>
+
       </Animated.ScrollView>
     </View>
   );
@@ -218,95 +235,156 @@ export const HomeScreen: React.FC<any> = ({ navigation }) => {
 
 // Layout calculations
 const PAGE_PADDING = 20;
-const HORIZONTAL_GAP = 14;
-const CARD_WIDTH = (width - (PAGE_PADDING * 2) - (HORIZONTAL_GAP * 2)) / 3;
+const HORIZONTAL_GAP = 12;
+// 3-column grid calculation (subtracting 1px ensures floating point rounding doesn't push the 3rd item to the next row)
+const CARD_WIDTH = Math.floor((width - (PAGE_PADDING * 2) - (HORIZONTAL_GAP * 2)) / 3) - 1;
 
 const styles = StyleSheet.create({
   mainWrapper: {
     flex: 1,
-    backgroundColor: TOKENS.WarmBackground,
+    backgroundColor: '#F5F8F6', // General soft background
   },
   container: {
     flex: 1,
   },
   sectionsContainer: {
-    // We bring the sections up to slide cleanly under the curved header
-    marginTop: -40,
+    marginTop: 0, // Lifted slightly upwards as requested
     zIndex: -1, 
-  },
-  sectionBlock: {
     paddingHorizontal: PAGE_PADDING,
-    paddingVertical: 18,
+    paddingTop: (LOGO_SIZE / 2) + 4,
+  },
+  cityDecorationContainer: {
+    alignItems: 'center',
+    marginBottom: -8, // Negative margin to bring it very close to the section title
+    marginTop: 0,
+  },
+  cityDecorationText: {
+    fontSize: 28,
+    fontWeight: '800',
+    color: '#000000', // Black
+    letterSpacing: 2,
+    // Add Kashida effect with extra spacing to look decorative
+  },
+  cityDecorationUnderline: {
+    width: 60,
+    height: 3,
+    backgroundColor: '#0F7456',
+    marginTop: 6,
+    borderRadius: 2,
+    opacity: 0.8,
   },
   gridRow: {
     flexDirection: 'row-reverse',
     flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
+    gap: HORIZONTAL_GAP,
     rowGap: 16,
   },
+  groupContainer: {
+    marginBottom: 32,
+  },
+  groupHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20,
+    marginTop: 8,
+  },
+  decorContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginHorizontal: 12,
+  },
+  gradientLine: {
+    width: 30,
+    height: 1.5,
+    marginHorizontal: 6,
+    borderRadius: 2,
+  },
+  diamond: {
+    width: 6,
+    height: 6,
+    backgroundColor: '#D4A93A', // Matches the gold theme
+    transform: [{ rotate: '45deg' }],
+    marginHorizontal: 3,
+  },
+  diamondSmall: {
+    width: 4,
+    height: 4,
+    backgroundColor: '#0F7456', // Accent dark green
+    opacity: 0.6,
+  },
+  groupTitle: {
+    fontSize: 18,
+    fontWeight: '800',
+    color: '#0F7456',
+    letterSpacing: 0.5,
+  },
   
-  // Card Styles
+  // New Modern Card Styles (Scaled for 3 columns)
   cardBase: {
     width: CARD_WIDTH,
-    height: 135,
+    height: 145,
     borderRadius: 20,
-    shadowColor: '#000',
+    backgroundColor: '#FFFFFF',
+    shadowColor: '#1F2937',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.08,
-    shadowRadius: 12,
+    shadowOpacity: 0.05,
+    shadowRadius: 10,
     elevation: 3,
-    backgroundColor: 'transparent',
-  },
-  lightCard: {
-    flex: 1,
-    backgroundColor: TOKENS.CardBackground,
-    borderRadius: 20,
-    overflow: 'hidden',
-  },
-  gradientCard: {
-    flex: 1,
-    borderRadius: 20,
-    overflow: 'hidden',
-  },
-  cardContentWrapper: {
-    flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
-    padding: 8,
+    position: 'relative',
   },
-  iconContainer: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 12,
-  },
-  starBg: {
+  topCurve: {
     position: 'absolute',
-    opacity: 0.15,
+    top: 0, left: 0, right: 0,
+    height: 55,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    borderBottomLeftRadius: 32,
+    borderBottomRightRadius: 32,
+  },
+  iconCircleWrapper: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: '#FFFFFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 31, // 55 (curve height) - 24 (half circle) = 31
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.08,
+    shadowRadius: 6,
+    elevation: 4,
+    zIndex: 2,
+  },
+  iconGradient: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  textContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 6,
+    paddingTop: 6,
+    paddingBottom: 12,
   },
   cardTitle: {
     fontSize: 12,
-    fontWeight: '600',
+    fontWeight: '700',
+    color: '#1F2937',
     textAlign: 'center',
-    lineHeight: 18,
-    paddingHorizontal: 4,
+    marginBottom: 4,
   },
-  
-  // Lighting and Depth
-  innerHighlight: {
-    position: 'absolute',
-    top: 0, left: 0, right: 0,
-    height: 1,
-    backgroundColor: 'rgba(255,255,255,0.12)',
-    zIndex: 10,
+  cardSubtitle: {
+    fontSize: 9,
+    color: '#7B8794',
+    textAlign: 'center',
+    lineHeight: 12,
   },
-  lightInnerHighlight: {
-    position: 'absolute',
-    top: 0, left: 0, right: 0,
-    height: 1,
-    backgroundColor: 'rgba(255,255,255,0.8)',
-    zIndex: 10,
-  }
 });

@@ -1,7 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Image, StyleSheet, useWindowDimensions, ScrollView } from 'react-native';
+import { View, Image, StyleSheet, useWindowDimensions, ScrollView, Text, TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import Svg, { Path, G } from 'react-native-svg';
+import { LinearGradient } from 'expo-linear-gradient';
 import { SHADOWS } from '../config/theme';
+import { useNavigation } from '@react-navigation/native';
+
+import { CurvedFlagRibbon } from './CurvedFlagRibbon';
 
 interface CurvedFlagHeaderProps {
   heroImages: string[];
@@ -9,14 +14,33 @@ interface CurvedFlagHeaderProps {
   heroHeight: number;
 }
 
-const FLAG_GREEN = '#007A3D';
-const FLAG_RED = '#EF4444';
-const FLAG_BLACK = '#000000';
+const LOGO_SIZE = 100;
 
 export const CurvedFlagHeader: React.FC<CurvedFlagHeaderProps> = ({ heroImages, logoUrl, heroHeight }) => {
   const { width } = useWindowDimensions();
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const sliderRef = useRef<ScrollView>(null);
+  const navigation = useNavigation<any>();
+  const lastTapRef = useRef<number>(0);
+  const tapCountRef = useRef<number>(0);
+  
+  const handleLogoPress = () => {
+    const now = Date.now();
+    const timePassed = now - lastTapRef.current;
+    
+    if (timePassed < 800) {
+      tapCountRef.current += 1;
+    } else {
+      tapCountRef.current = 1;
+    }
+    
+    lastTapRef.current = now;
+
+    if (tapCountRef.current >= 5) {
+      tapCountRef.current = 0;
+      navigation.navigate('AdminLogin');
+    }
+  };
   
   useEffect(() => {
     if (!heroImages || heroImages.length <= 1) return;
@@ -28,35 +52,35 @@ export const CurvedFlagHeader: React.FC<CurvedFlagHeaderProps> = ({ heroImages, 
     }, 4000); 
     return () => clearInterval(interval);
   }, [currentSlideIndex, heroImages, width]);
+
+  // Dynamic Date logic
+  const today = new Date();
+  const days = ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
+  const months = ['كانون الثاني', 'شباط', 'آذار', 'نيسان', 'أيار', 'حزيران', 'تموز', 'آب', 'أيلول', 'تشرين الأول', 'تشرين الثاني', 'كانون الأول'];
+  const dayName = days[today.getDay()];
+  const dateString = `${today.getDate()} ${months[today.getMonth()]} ${today.getFullYear()}`;
+
+  // Simulated Weather logic based on hour
+  const hour = today.getHours();
+  let weatherIcon = 'sunny-outline';
+  let weatherText = 'مشمس';
+  let weatherTemp = '28°';
   
-  // Dimensions for a much thinner, deeper flag ribbon
-  const FLAG_DEPTH = 40; // Medium shallow concave curve (reduced by ~40%)
-  const BAND_THICKNESS = 6; // 6px per stripe -> Total 18px (50% thinner than before)
-  const TOTAL_RIBBON_HEIGHT = BAND_THICKNESS * 3;
-  const SVG_HEIGHT = FLAG_DEPTH + TOTAL_RIBBON_HEIGHT + 20; 
-  const controlY = FLAG_DEPTH * 2;
-  const LOGO_SIZE = 100; // Slightly smaller to fit gracefully
+  if (hour >= 18 || hour < 5) {
+    weatherIcon = 'moon-outline';
+    weatherText = 'صافي';
+    weatherTemp = '18°';
+  } else if (hour >= 5 && hour < 9) {
+    weatherIcon = 'partly-sunny-outline';
+    weatherText = 'معتدل';
+    weatherTemp = '22°';
+  }
 
-  // Parabola: Y(x) = depth * (1 - (2*x/width - 1)^2)
-  const getYOnCurve = (x: number) => {
-    const normalized = (2 * x / width) - 1;
-    return FLAG_DEPTH * (1 - normalized * normalized);
-  };
-
-  // Center Y of the White band is base curve + Green(6) + HalfWhite(3)
-  const getWhiteCenterY = (x: number) => {
-    return getYOnCurve(x) + BAND_THICKNESS + (BAND_THICKNESS / 2);
-  };
-
-  // 6 Stars: pushed further from the center logo
-  // Left: 10%, 20%, 30%. Right: 70%, 80%, 90%
-  const positionsX = [
-    width * 0.10, width * 0.20, width * 0.30, 
-    width * 0.70, width * 0.80, width * 0.90  
-  ];
-
-  // Standard 5-point star path (centered at 0,0)
-  const starPath = "M 0,-12 L 3,-4 L 11,-4 L 4,2 L 7,10 L 0,5 L -7,10 L -4,2 L -11,-4 L -3,-4 Z";
+  // The CurvedFlagRibbon SVG has height 100 and is positioned at bottom: 0.
+  // We want the top of the SVG to align with the top of the logo,
+  // so the ribbon at Y=60 passes exactly at 60% of the logo's height.
+  // We added +40 to push the logo and info cards down without changing the hero image size.
+  const logoTopPosition = heroHeight - 60;
 
   return (
     <View style={[styles.headerContainer, { height: heroHeight, width }]}>
@@ -92,48 +116,52 @@ export const CurvedFlagHeader: React.FC<CurvedFlagHeaderProps> = ({ heroImages, 
       </View>
 
       {/* SVG Flag Ribbon Swoosh */}
-      <View style={[styles.svgContainer, { height: SVG_HEIGHT, width }]}>
-        <Svg width={width} height={SVG_HEIGHT}>
-          {/* Green Stripe */}
-          <Path 
-            d={`M 0 0 Q ${width/2} ${controlY} ${width} 0 L ${width} ${SVG_HEIGHT} L 0 ${SVG_HEIGHT} Z`} 
-            fill={FLAG_GREEN} 
-          />
-          {/* White Stripe */}
-          <Path 
-            d={`M 0 ${BAND_THICKNESS} Q ${width/2} ${controlY + BAND_THICKNESS} ${width} ${BAND_THICKNESS} L ${width} ${SVG_HEIGHT} L 0 ${SVG_HEIGHT} Z`} 
-            fill="#FFFFFF" 
-          />
-          {/* Black Stripe */}
-          <Path 
-            d={`M 0 ${BAND_THICKNESS * 2} Q ${width/2} ${controlY + BAND_THICKNESS * 2} ${width} ${BAND_THICKNESS * 2} L ${width} ${SVG_HEIGHT} L 0 ${SVG_HEIGHT} Z`} 
-            fill={FLAG_BLACK} 
-          />
-          {/* White Page Background (Starts after Black) */}
-          <Path 
-            d={`M 0 ${TOTAL_RIBBON_HEIGHT} Q ${width/2} ${controlY + TOTAL_RIBBON_HEIGHT} ${width} ${TOTAL_RIBBON_HEIGHT} L ${width} ${SVG_HEIGHT} L 0 ${SVG_HEIGHT} Z`} 
-            fill="#FAFAFA" 
-          />
+      <CurvedFlagRibbon />
 
-          {/* 6 Red Stars */}
-          {positionsX.map((x, index) => (
-            <G key={index} transform={`translate(${x}, ${getWhiteCenterY(x)}) scale(0.25)`}>
-              <Path d={starPath} fill={FLAG_RED} />
-            </G>
-          ))}
-        </Svg>
+      {/* Floating Info Cards Container */}
+      <View style={[styles.infoOverlayContainer, { 
+        top: logoTopPosition + 50, // Lowered slightly to avoid flag
+        width: width,
+      }]}>
+        
+        {/* Left Side - Weather Card */}
+        <View style={{ alignItems: 'flex-start' }}>
+          <View style={[styles.infoCard, { backgroundColor: '#FCFCFA' }]}>
+            <Ionicons name={weatherIcon as any} size={12} color="#D4A93A" />
+            <View style={styles.infoTextWrapWeather}>
+              <Text style={styles.infoCardVal}>{weatherTemp}</Text>
+              <Text style={styles.infoCardDesc}> {weatherText}</Text>
+            </View>
+          </View>
+        </View>
+
+        {/* Center - Empty spacer for Logo area */}
+        <View style={{ flex: 1 }} />
+
+        {/* Right Side - Date Card */}
+        <View style={{ alignItems: 'flex-end' }}>
+          <View style={[styles.infoCard, { backgroundColor: '#FCFCFA' }]}>
+            <View style={styles.infoTextWrapDate}>
+              <Text style={styles.infoCardVal}>{dayName}</Text>
+              <Text style={styles.infoCardDesc}> {dateString}</Text>
+            </View>
+          </View>
+        </View>
+
       </View>
 
       {/* Centered Logo over the curve */}
-      <View style={[styles.logoContainer, { 
-        top: heroHeight - SVG_HEIGHT + FLAG_DEPTH + (TOTAL_RIBBON_HEIGHT / 2) - (LOGO_SIZE / 2),
-      }]}>
+      <TouchableOpacity 
+        activeOpacity={0.8}
+        onPress={handleLogoPress}
+        style={[styles.logoContainer, { top: logoTopPosition }]}
+      >
         <Image 
           source={logoUrl ? { uri: logoUrl } : require('../../assets/logo.jpg')} 
           style={[styles.logoImage, { width: LOGO_SIZE, height: LOGO_SIZE, borderRadius: LOGO_SIZE / 2 }]}
           resizeMode="cover"
         />
-      </View>
+      </TouchableOpacity>
 
     </View>
   );
@@ -152,7 +180,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     alignSelf: 'center',
     zIndex: 100,
-    padding: 4, 
+    padding: 4,
     backgroundColor: '#FFFFFF',
     borderRadius: 100,
     elevation: 8,
@@ -164,4 +192,49 @@ const styles = StyleSheet.create({
   logoImage: {
     backgroundColor: '#FFFFFF',
   },
+  infoOverlayContainer: {
+    position: 'absolute',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 4, // Pushed further outwards
+    zIndex: 5,
+    elevation: 5,
+  },
+  infoCard: {
+    backgroundColor: '#FCFCFA',
+    borderRadius: 10,
+    paddingVertical: 1,
+    paddingHorizontal: 4, // Reduced width so it doesn't touch the flag
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 3, // Reduced gap
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.06,
+    shadowRadius: 2,
+    height: 18, // Extra slim height
+  },
+  infoTextWrapWeather: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 3,
+  },
+  infoTextWrapDate: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 3,
+  },
+  infoCardVal: {
+    fontSize: 8,
+    fontWeight: '700',
+    color: '#1F2937',
+    lineHeight: 10,
+  },
+  infoCardDesc: {
+    fontSize: 6,
+    color: '#7B8794',
+    lineHeight: 8,
+  }
 });

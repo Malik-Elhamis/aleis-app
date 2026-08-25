@@ -46,14 +46,14 @@ export const WaterFaultsScreen: React.FC = () => {
           return (
             <View style={[styles.faultCard, SHADOWS.medium, { borderRightColor: statusDisplay.color }]}>
               <View style={styles.faultHeader}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1, marginRight: 12 }}>
+                  <Ionicons name="warning-outline" size={18} color="#E11D48" style={{ marginLeft: 6 }} />
+                  <Text style={styles.faultTitle} numberOfLines={2}>{item.title}</Text>
+                </View>
                 <View style={[styles.faultStatus, { backgroundColor: statusDisplay.bg }]}>
                   <Text style={[styles.faultStatusText, { color: statusDisplay.color }]}>
                     {statusDisplay.text}
                   </Text>
-                </View>
-                <View style={{ flexDirection: 'row-reverse', alignItems: 'center' }}>
-                  <Ionicons name="warning-outline" size={18} color="#E11D48" style={{ marginLeft: 6 }} />
-                  <Text style={styles.faultTitle}>{item.title}</Text>
                 </View>
               </View>
 
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     borderRightColor: '#E11D48',
   },
   faultHeader: {
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 8,
@@ -130,7 +130,8 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: '800',
     color: COLORS.textPrimary,
-    textAlign: 'right',
+    textAlign: 'left',
+    flex: 1,
   },
   faultStatus: {
     paddingHorizontal: 8,
@@ -144,7 +145,7 @@ const styles = StyleSheet.create({
   faultDesc: {
     fontSize: 13,
     color: COLORS.textSecondary,
-    textAlign: 'right',
+    textAlign: 'left',
     marginBottom: 12,
     lineHeight: 18,
   },
@@ -157,21 +158,21 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   faultDetailRow: {
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'flex-start',
   },
   reasonLabel: {
     fontSize: 12,
     fontWeight: '700',
     color: '#64748B',
-    textAlign: 'right',
+    textAlign: 'left',
     marginLeft: 6,
     width: 75,
   },
   reasonText: {
     fontSize: 13,
     color: COLORS.textPrimary,
-    textAlign: 'right',
+    textAlign: 'left',
     flex: 1,
   },
 });

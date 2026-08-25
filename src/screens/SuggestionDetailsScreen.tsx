@@ -109,12 +109,12 @@ const styles = StyleSheet.create({
   headerIcon: { marginBottom: 12 },
 
   card: { backgroundColor: '#FFF', borderRadius: 16, padding: 20, borderWidth: 1, borderColor: '#F1F5F9' },
-  title: { fontSize: 20, fontWeight: '900', color: COLORS.textPrimary, textAlign: 'right', marginBottom: 10, lineHeight: 28 },
+  title: { fontSize: 20, fontWeight: '900', color: COLORS.textPrimary, textAlign: 'left', marginBottom: 10, lineHeight: 28 },
   divider: { height: 1, backgroundColor: '#E2E8F0', marginVertical: 16 },
   
-  sectionTitle: { fontSize: 15, fontWeight: '800', color: '#9333EA', textAlign: 'right', marginBottom: 8 },
-  description: { fontSize: 16, color: COLORS.textSecondary, textAlign: 'right', lineHeight: 26 },
+  sectionTitle: { fontSize: 15, fontWeight: '800', color: '#9333EA', textAlign: 'left', marginBottom: 8 },
+  description: { fontSize: 16, color: COLORS.textSecondary, textAlign: 'left', lineHeight: 26 },
   
-  infoRow: { flexDirection: 'row-reverse', alignItems: 'center', marginBottom: 12, gap: 10 },
+  infoRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 12, gap: 10 },
   infoText: { fontSize: 14, color: COLORS.textSecondary, fontWeight: '600' },
 });

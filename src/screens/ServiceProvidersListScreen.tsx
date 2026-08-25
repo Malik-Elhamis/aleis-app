@@ -13,13 +13,13 @@ import { subscribeServiceProvidersByCategory } from '../services/firestoreServic
 import { ServiceProvider } from '../types';
 
 export const ServiceProvidersListScreen: React.FC<any> = ({ route, navigation }) => {
-  const { categoryTitle } = route.params;
+  const { categoryTitle, dbCategory } = route.params;
   const [providers, setProviders] = useState<ServiceProvider[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     navigation.setOptions({ title: categoryTitle });
-    const unsub = subscribeServiceProvidersByCategory(categoryTitle, (items) => {
+    const unsub = subscribeServiceProvidersByCategory(dbCategory || categoryTitle, (items) => {
       setProviders(items);
       setLoading(false);
     });

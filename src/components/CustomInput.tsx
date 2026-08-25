@@ -59,7 +59,9 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: COLORS.textPrimary,
     marginBottom: 6,
-    textAlign: 'right',
+    textAlign: 'left',
+    alignSelf: 'flex-start',
+    width: '100%',
   },
   inputWrapper: {
     flexDirection: 'row-reverse', // RTL orientation
@@ -82,11 +84,14 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: COLORS.textPrimary,
     paddingVertical: 10,
+    textAlign: 'right',
   },
   errorText: {
     fontSize: 12,
     color: COLORS.danger,
     marginTop: 4,
-    textAlign: 'right',
+    textAlign: 'left',
+    alignSelf: 'flex-start',
+    width: '100%',
   },
 });

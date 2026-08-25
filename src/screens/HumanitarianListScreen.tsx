@@ -152,19 +152,19 @@ const styles = StyleSheet.create({
   completedText: { color: '#FFF', fontSize: 12, fontWeight: '800' },
   
   cardContent: { padding: 16 },
-  cardTitle: { fontSize: 18, fontWeight: '800', color: COLORS.textPrimary, textAlign: 'right', marginBottom: 8 },
-  cardDesc: { fontSize: 14, color: COLORS.textSecondary, textAlign: 'right', lineHeight: 22, marginBottom: 16 },
+  cardTitle: { fontSize: 18, fontWeight: '800', color: COLORS.textPrimary, textAlign: 'left', marginBottom: 8 },
+  cardDesc: { fontSize: 14, color: COLORS.textSecondary, textAlign: 'left', lineHeight: 22, marginBottom: 16 },
   
-  statsContainer: { flexDirection: 'row-reverse', justifyContent: 'space-between', marginBottom: 12 },
+  statsContainer: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 12 },
   statBox: { flex: 1, backgroundColor: '#F8FAFC', padding: 12, borderRadius: 8, marginHorizontal: 4, alignItems: 'center' },
   statLabel: { fontSize: 13, color: COLORS.textSecondary, marginBottom: 4 },
   statValue: { fontSize: 16, fontWeight: '800', color: COLORS.textPrimary },
   
   progressBarBg: { height: 8, backgroundColor: '#E2E8F0', borderRadius: 4, marginBottom: 8, overflow: 'hidden' },
   progressBarFill: { height: '100%', backgroundColor: COLORS.primary, borderRadius: 4 },
-  progressText: { fontSize: 12, color: COLORS.textSecondary, textAlign: 'right', marginBottom: 12 },
+  progressText: { fontSize: 12, color: COLORS.textSecondary, textAlign: 'left', marginBottom: 12 },
   
-  detailsBtn: { flexDirection: 'row-reverse', alignItems: 'center', justifyContent: 'center', backgroundColor: COLORS.primaryLight, paddingVertical: 10, borderRadius: 8, marginTop: 8 },
+  detailsBtn: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: COLORS.primaryLight, paddingVertical: 10, borderRadius: 8, marginTop: 8 },
   detailsBtnText: { fontSize: 14, fontWeight: '700', color: COLORS.primary, marginLeft: 4 },
   
   completedCardSection: { alignItems: 'center', backgroundColor: '#ECFDF5', padding: 16, borderRadius: 12, marginTop: 8, borderWidth: 1, borderColor: '#A7F3D0' },

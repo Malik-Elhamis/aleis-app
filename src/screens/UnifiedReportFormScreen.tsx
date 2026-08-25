@@ -203,8 +203,7 @@ export const UnifiedReportFormScreen: React.FC = () => {
       
       {/* Confidentiality Alert */}
       <View style={styles.confidentialAlert}>
-        <Ionicons name="shield-checkmark" size={24} color={COLORS.success} />
-        <View style={{ flex: 1, marginRight: 8 }}>
+        <View style={{ flex: 1 }}>
           <Text style={styles.confidentialAlertTitle}>معلوماتك في سرية تامة و بأمان!</Text>
           <Text style={styles.confidentialAlertText}>
             يمكنك إرسال البلاغ بشكل علني، أو تفعيل خيار "فاعل خير" في الخطوة قبل الأخيرة لإخفاء جميع بياناتك تماماً عن الجهات المعنية.
@@ -469,7 +468,7 @@ const styles = StyleSheet.create({
   scrollContent: { padding: SPACING.md, paddingBottom: 60 },
   
   progressHeader: { marginBottom: 24, paddingHorizontal: 8 },
-  progressText: { fontSize: 13, fontWeight: '700', color: COLORS.primaryDark, textAlign: 'right', marginBottom: 8 },
+  progressText: { fontSize: 13, fontWeight: '700', color: COLORS.primaryDark, textAlign: 'left', marginBottom: 8 },
   progressBarTrack: { height: 8, backgroundColor: '#E2E8F0', borderRadius: 4, overflow: 'hidden' },
   progressBarFill: { height: '100%', backgroundColor: COLORS.primary, borderRadius: 4 },
 
@@ -478,32 +477,32 @@ const styles = StyleSheet.create({
   stepTitleCentered: { fontSize: 20, fontWeight: '800', color: COLORS.primaryDark, textAlign: 'center', marginBottom: 8 },
   stepSubCentered: { fontSize: 13, color: COLORS.textSecondary, textAlign: 'center', marginBottom: 24, lineHeight: 20 },
 
-  confidentialAlert: { flexDirection: 'row-reverse', backgroundColor: COLORS.successLight, padding: 16, borderRadius: 12, marginBottom: 20, alignItems: 'center', borderWidth: 1, borderColor: COLORS.success },
-  confidentialAlertTitle: { fontSize: 14, fontWeight: '800', color: COLORS.primaryDark, textAlign: 'right', marginBottom: 4 },
-  confidentialAlertText: { fontSize: 12, color: COLORS.textSecondary, textAlign: 'right', lineHeight: 18 },
+  confidentialAlert: { flexDirection: 'row', backgroundColor: COLORS.successLight, padding: 16, borderRadius: 12, marginBottom: 20, alignItems: 'flex-start', borderWidth: 1, borderColor: COLORS.success },
+  confidentialAlertTitle: { fontSize: 14, fontWeight: '800', color: COLORS.primaryDark, textAlign: 'left', marginBottom: 4 },
+  confidentialAlertText: { fontSize: 12, color: COLORS.textSecondary, textAlign: 'left', lineHeight: 18 },
 
-  optionsGrid: { flexDirection: 'row-reverse', flexWrap: 'wrap', gap: 12 },
+  optionsGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 12 },
   optionCard: { width: '48%', backgroundColor: '#F8FAFC', padding: 16, borderRadius: 12, alignItems: 'center', justifyContent: 'center', borderWidth: 2, borderColor: '#E2E8F0' },
   optionCardSelected: { backgroundColor: COLORS.primary, borderColor: COLORS.primaryDark },
   optionLabel: { fontSize: 13, fontWeight: '700', color: COLORS.textPrimary, textAlign: 'center' },
 
-  inputLabel: { fontSize: 14, fontWeight: '700', color: COLORS.textPrimary, textAlign: 'right', marginBottom: 8, marginTop: 16 },
+  inputLabel: { fontSize: 14, fontWeight: '700', color: COLORS.textPrimary, textAlign: 'left', marginBottom: 8, marginTop: 16 },
   textAreaContainer: { backgroundColor: '#F8FAFC', borderRadius: 12, borderWidth: 1, borderColor: COLORS.border, padding: 12 },
   textArea: { height: 160, fontSize: 14, color: COLORS.textPrimary },
 
-  mapButton: { flexDirection: 'row-reverse', backgroundColor: COLORS.primary, padding: 14, borderRadius: 12, alignItems: 'center', justifyContent: 'center', marginTop: 10, marginBottom: 16, ...SHADOWS.small },
+  mapButton: { flexDirection: 'row', backgroundColor: COLORS.primary, padding: 14, borderRadius: 12, alignItems: 'center', justifyContent: 'center', marginTop: 10, marginBottom: 16, ...SHADOWS.small },
   mapButtonText: { color: '#FFF', fontSize: 14, fontWeight: '700' },
 
-  imagesGrid: { flexDirection: 'row-reverse', flexWrap: 'wrap', gap: 12 },
+  imagesGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 12 },
   addImageBtn: { width: 100, height: 100, borderRadius: 12, borderWidth: 1, borderColor: COLORS.primary, borderStyle: 'dashed', justifyContent: 'center', alignItems: 'center', backgroundColor: COLORS.primaryLight },
   addImageText: { fontSize: 11, color: COLORS.primary, marginTop: 8, fontWeight: '700', textAlign: 'center', paddingHorizontal: 4 },
   imageThumbnailWrapper: { width: 100, height: 100, borderRadius: 12, overflow: 'hidden', position: 'relative' },
   imageThumbnail: { width: '100%', height: '100%', resizeMode: 'cover' },
   removeImageBtn: { position: 'absolute', top: 4, left: 4, backgroundColor: 'rgba(255,255,255,0.8)', borderRadius: 12, padding: 2 },
 
-  anonToggleContainer: { flexDirection: 'row-reverse', alignItems: 'center', backgroundColor: COLORS.accentLight, padding: 16, borderRadius: 12, marginBottom: 20, borderWidth: 1, borderColor: COLORS.accent },
-  anonToggleTitle: { fontSize: 15, fontWeight: '800', color: '#B45309', textAlign: 'right' },
-  anonToggleSub: { fontSize: 12, color: '#D97706', textAlign: 'right', marginTop: 4 },
+  anonToggleContainer: { flexDirection: 'row', alignItems: 'center', backgroundColor: COLORS.accentLight, padding: 16, borderRadius: 12, marginBottom: 20, borderWidth: 1, borderColor: COLORS.accent },
+  anonToggleTitle: { fontSize: 15, fontWeight: '800', color: '#B45309', textAlign: 'left' },
+  anonToggleSub: { fontSize: 12, color: '#D97706', textAlign: 'left', marginTop: 4 },
   toggleSwitch: { width: 50, height: 28, borderRadius: 14, backgroundColor: '#FDE68A', justifyContent: 'center', padding: 2 },
   toggleSwitchActive: { backgroundColor: COLORS.accent },
   toggleThumb: { width: 24, height: 24, borderRadius: 12, backgroundColor: '#FFF' },
@@ -512,19 +511,19 @@ const styles = StyleSheet.create({
   identityForm: { marginTop: 12 },
   
   summaryBox: { backgroundColor: '#F8FAFC', padding: 20, borderRadius: 16, marginTop: 10, borderWidth: 1, borderColor: '#E2E8F0' },
-  summaryRow: { flexDirection: 'row-reverse', justifyContent: 'space-between', marginBottom: 12 },
-  summaryLabel: { fontSize: 14, fontWeight: '700', color: COLORS.textSecondary, width: '25%', textAlign: 'right' },
-  summaryValue: { fontSize: 14, fontWeight: '700', color: COLORS.primaryDark, width: '70%', textAlign: 'right' },
+  summaryRow: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 12 },
+  summaryLabel: { fontSize: 14, fontWeight: '700', color: COLORS.textSecondary, width: '25%', textAlign: 'left' },
+  summaryValue: { fontSize: 14, fontWeight: '700', color: COLORS.primaryDark, width: '70%', textAlign: 'left' },
   summaryDivider: { height: 1, backgroundColor: COLORS.border, marginVertical: 16 },
-  summaryLabelTop: { fontSize: 14, fontWeight: '700', color: COLORS.textSecondary, textAlign: 'right', marginBottom: 8 },
-  summaryDescText: { fontSize: 14, color: COLORS.textPrimary, textAlign: 'right', lineHeight: 22 },
-  summaryImagesScroll: { marginTop: 12, flexDirection: 'row-reverse' },
+  summaryLabelTop: { fontSize: 14, fontWeight: '700', color: COLORS.textSecondary, textAlign: 'left', marginBottom: 8 },
+  summaryDescText: { fontSize: 14, color: COLORS.textPrimary, textAlign: 'left', lineHeight: 22 },
+  summaryImagesScroll: { marginTop: 12, flexDirection: 'row' },
   summaryImageLarge: { width: 120, height: 120, borderRadius: 12, marginLeft: 12, resizeMode: 'cover' },
 
-  bottomNav: { flexDirection: 'row-reverse', justifyContent: 'space-between', alignItems: 'center', marginTop: 24, paddingHorizontal: 4 },
-  backBtn: { flexDirection: 'row-reverse', alignItems: 'center', paddingVertical: 14, paddingHorizontal: 16, backgroundColor: '#F1F5F9', borderRadius: 12, flex: 1, justifyContent: 'center', marginLeft: 12 },
+  bottomNav: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 24, paddingHorizontal: 4 },
+  backBtn: { flexDirection: 'row', alignItems: 'center', paddingVertical: 14, paddingHorizontal: 16, backgroundColor: '#F1F5F9', borderRadius: 12, flex: 1, justifyContent: 'center', marginLeft: 12 },
   backBtnText: { fontSize: 16, fontWeight: '700', color: COLORS.primary },
-  nextBtn: { flexDirection: 'row-reverse', alignItems: 'center', paddingVertical: 14, paddingHorizontal: 24, backgroundColor: COLORS.primary, borderRadius: 12, flex: 2, justifyContent: 'center', ...SHADOWS.medium },
+  nextBtn: { flexDirection: 'row', alignItems: 'center', paddingVertical: 14, paddingHorizontal: 24, backgroundColor: COLORS.primary, borderRadius: 12, flex: 2, justifyContent: 'center', ...SHADOWS.medium },
   nextBtnText: { fontSize: 16, fontWeight: '800', color: '#FFF' },
-  submitBtn: { flexDirection: 'row-reverse', alignItems: 'center', paddingVertical: 14, paddingHorizontal: 24, backgroundColor: COLORS.success, borderRadius: 12, flex: 2, justifyContent: 'center', ...SHADOWS.medium },
+  submitBtn: { flexDirection: 'row', alignItems: 'center', paddingVertical: 14, paddingHorizontal: 24, backgroundColor: COLORS.success, borderRadius: 12, flex: 2, justifyContent: 'center', ...SHADOWS.medium },
 });

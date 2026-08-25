@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   View, 
   Text, 
@@ -7,9 +7,10 @@ import {
   ScrollView,
   Alert
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, FontAwesome5 } from '@expo/vector-icons';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../config/firebase';
+import { subscribeDashboardStats } from '../../services/firestoreService';
 import { COLORS, SPACING, SHADOWS } from '../../config/theme';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -19,6 +20,14 @@ type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 export const AdminDashboardScreen: React.FC = () => {
   const navigation = useNavigation<NavigationProp>();
+  const [stats, setStats] = useState<Record<string, number>>({});
+
+  useEffect(() => {
+    const unsub = subscribeDashboardStats((newStats) => {
+      setStats(newStats);
+    });
+    return () => unsub();
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -90,6 +99,14 @@ export const AdminDashboardScreen: React.FC = () => {
       icon: 'water-outline',
       color: '#0284C7',
       onPress: () => navigation.navigate('AdminWaterSchedules')
+    },
+    {
+      id: 'electricity_schedules',
+      title: 'جداول الكهرباء',
+      subtitle: 'إدارة أوقات وأيام القطع والتوصيل لكل حي',
+      icon: 'flash-outline',
+      color: '#F59E0B',
+      onPress: () => navigation.navigate('AdminElectricitySchedules')
     },
     {
       id: 'water_faults',
@@ -172,6 +189,14 @@ export const AdminDashboardScreen: React.FC = () => {
       onPress: () => navigation.navigate('AdminCleanliness')
     },
     {
+      id: 'tractor_schedule',
+      title: 'إدارة حركة الجرار',
+      subtitle: 'تعديل جدول مسار جرار النظافة والملاحظات',
+      icon: 'tractor',
+      color: '#F97316',
+      onPress: () => navigation.navigate('AdminTractorSchedule')
+    },
+    {
       id: 'electricity_faults',
       title: 'أعطال الكهرباء والإنارة',
       subtitle: 'إدارة بلاغات الانقطاع وأعطال الإنارة',
@@ -202,6 +227,30 @@ export const AdminDashboardScreen: React.FC = () => {
       icon: 'people-outline',
       color: '#047857',
       onPress: () => navigation.navigate('AdminCouncil')
+    },
+    {
+      id: 'events',
+      title: 'إدارة الفعاليات',
+      subtitle: 'إضافة اجتماعات وندوات وفعاليات',
+      icon: 'calendar-outline',
+      color: '#8B5CF6', // Purple
+      onPress: () => navigation.navigate('AdminEvents')
+    },
+    {
+      id: 'notifications',
+      title: 'إدارة الإشعارات العامة',
+      subtitle: 'إرسال تنبيهات هامة وعاجلة للمستخدمين',
+      icon: 'notifications-outline',
+      color: '#E11D48', // Rose
+      onPress: () => navigation.navigate('AdminNotifications')
+    },
+    {
+      id: 'splash',
+      title: 'إدارة شاشة البداية',
+      subtitle: 'تغيير الصورة الترحيبية عند فتح التطبيق',
+      icon: 'image-outline',
+      color: '#0D9488', // Teal
+      onPress: () => navigation.navigate('AdminSplash')
     }
   ];
 
@@ -219,14 +268,16 @@ export const AdminDashboardScreen: React.FC = () => {
 
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
         
-        <View style={styles.statsContainer}>
-          <View style={[styles.statBox, SHADOWS.small]}>
-            <Text style={styles.statNum}>12</Text>
-            <Text style={styles.statLabel}>شكاوى غير محلولة</Text>
+        {/* App Installs Stat Card */}
+        <View style={[styles.installsCard, SHADOWS.large]}>
+          <View style={styles.installsIconContainer}>
+            <Ionicons name="cloud-download" size={36} color="#FFF" />
           </View>
-          <View style={[styles.statBox, SHADOWS.small]}>
-            <Text style={styles.statNum}>5</Text>
-            <Text style={styles.statLabel}>اقتراحات جديدة</Text>
+          <View style={styles.installsTextContainer}>
+            <Text style={styles.installsLabel}>إجمالي مستخدمي التطبيق</Text>
+            <Text style={styles.installsValue}>
+              {stats.app_installs !== undefined ? stats.app_installs : '...'} <Text style={styles.installsUnit}>مستخدم</Text>
+            </Text>
           </View>
         </View>
 
@@ -241,7 +292,18 @@ export const AdminDashboardScreen: React.FC = () => {
               activeOpacity={0.7}
             >
               <View style={[styles.iconWrapper, { backgroundColor: item.color + '1A' }]}>
-                <Ionicons name={item.icon as any} size={32} color={item.color} />
+                {stats[item.id] > 0 && (
+                  <View style={styles.badgeContainer}>
+                    <Text style={styles.badgeText}>
+                      {stats[item.id] > 99 ? '+99' : stats[item.id]}
+                    </Text>
+                  </View>
+                )}
+                {item.icon === 'tractor' ? (
+                  <FontAwesome5 name="tractor" size={28} color={item.color} />
+                ) : (
+                  <Ionicons name={item.icon as any} size={32} color={item.color} />
+                )}
               </View>
               <View style={styles.cardTextContent}>
                 <Text style={styles.cardTitle}>{item.title}</Text>
@@ -293,31 +355,44 @@ const styles = StyleSheet.create({
     padding: SPACING.md,
     paddingBottom: 40,
   },
-  statsContainer: {
+  installsCard: {
+    backgroundColor: '#0F7A5A', // Beautiful teal/green gradient vibe
+    borderRadius: 20,
+    padding: SPACING.lg,
     flexDirection: 'row-reverse',
-    justifyContent: 'space-between',
-    marginBottom: SPACING.lg,
-    gap: SPACING.md,
-  },
-  statBox: {
-    flex: 1,
-    backgroundColor: COLORS.surface,
-    borderRadius: 16,
-    padding: SPACING.md,
     alignItems: 'center',
-    borderTopWidth: 4,
-    borderTopColor: COLORS.primary,
+    marginBottom: SPACING.xl,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.2)'
   },
-  statNum: {
-    fontSize: 28,
-    fontWeight: '800',
-    color: COLORS.textPrimary,
+  installsIconContainer: {
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 16,
   },
-  statLabel: {
-    fontSize: 12,
-    color: COLORS.textSecondary,
-    marginTop: 4,
+  installsTextContainer: {
+    flex: 1,
+    alignItems: 'flex-end',
+  },
+  installsLabel: {
+    fontSize: 16,
+    color: 'rgba(255,255,255,0.9)',
+    fontWeight: '700',
+    marginBottom: 4,
+  },
+  installsValue: {
+    fontSize: 32,
+    fontWeight: '900',
+    color: '#FFF',
+  },
+  installsUnit: {
+    fontSize: 16,
     fontWeight: '600',
+    color: 'rgba(255,255,255,0.8)',
   },
   sectionTitle: {
     fontSize: 18,
@@ -358,5 +433,25 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: COLORS.textSecondary,
     textAlign: 'right',
+  },
+  badgeContainer: {
+    position: 'absolute',
+    top: -6,
+    left: -6,
+    backgroundColor: '#EF4444', // Red color for badge
+    minWidth: 22,
+    height: 22,
+    borderRadius: 11,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 6,
+    zIndex: 10,
+    borderWidth: 2,
+    borderColor: COLORS.surface,
+  },
+  badgeText: {
+    color: '#FFFFFF',
+    fontSize: 11,
+    fontWeight: 'bold',
   }
 });

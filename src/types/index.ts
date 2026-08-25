@@ -88,6 +88,21 @@ export interface WaterScheduleItem {
   createdAt?: string | number;
 }
 
+export type ElectricityPumpingStatus = 'active' | 'scheduled' | 'delayed' | 'stopped';
+
+export interface ElectricityScheduleItem {
+  id: string;
+  neighborhood: string;
+  status: ElectricityPumpingStatus;
+  statusText: string;
+  cutoffTime: string;
+  expectedReturnTime: string;
+  expectedDay: string;
+  expectedDate?: string;
+  notes?: string;
+  createdAt?: string | number;
+}
+
 export interface AboutUsData {
   programmerName: string;
   programmerImage: string;
@@ -339,5 +354,35 @@ export interface AleisArticle {
   title: string;
   description: string;
   images: string[];
+  createdAt?: string | number;
+}
+
+export interface TractorScheduleItem {
+  id: string;
+  day: string;
+  location: string;
+  order: number;
+}
+
+export interface TractorScheduleNote {
+  id: string;
+  text: string;
+  order: number;
+}
+
+export interface EventItem {
+  id?: string;
+  title: string;
+  details: string;
+  createdAt?: string | number;
+}
+
+export type AppNotificationType = 'info' | 'warning' | 'urgent';
+
+export interface AppNotification {
+  id?: string;
+  title: string;
+  message: string;
+  type: AppNotificationType;
   createdAt?: string | number;
 }

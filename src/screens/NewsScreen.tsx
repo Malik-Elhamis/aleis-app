@@ -61,7 +61,7 @@ export const NewsScreen: React.FC<any> = ({ navigation }) => {
       {/* Categories Filter */}
       <View style={styles.categoriesWrapper}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.categoriesScroll}>
-          {[...dynamicCategories].reverse().map((cat) => (
+          {dynamicCategories.map((cat) => (
             <TouchableOpacity 
               key={cat} 
               style={[styles.catBtn, activeTab === cat && styles.catBtnActive]}
@@ -129,14 +129,14 @@ const styles = StyleSheet.create({
   headerSub: { fontSize: 14, color: '#E0E7FF', zIndex: 1 },
   
   categoriesWrapper: { backgroundColor: '#FFF', paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: COLORS.border },
-  categoriesScroll: { paddingHorizontal: SPACING.md, gap: 8, flexDirection: 'row', justifyContent: 'flex-end', minWidth: '100%' },
-  catBtn: { paddingHorizontal: 16, paddingVertical: 8, borderRadius: 20, backgroundColor: '#F1F5F9', marginLeft: 8 },
+  categoriesScroll: { paddingHorizontal: SPACING.md, gap: 8, flexDirection: 'row', justifyContent: 'flex-start', minWidth: '100%' },
+  catBtn: { paddingHorizontal: 16, paddingVertical: 8, borderRadius: 20, backgroundColor: '#F1F5F9' },
   catBtnActive: { backgroundColor: COLORS.primary },
   catText: { fontSize: 13, fontWeight: '700', color: COLORS.textSecondary },
   catTextActive: { color: '#FFF' },
 
   listPadding: { padding: SPACING.md, paddingBottom: 100 },
-  card: { flexDirection: 'row', backgroundColor: '#FFF', borderRadius: 16, overflow: 'hidden', marginBottom: 16, height: 130 },
+  card: { flexDirection: 'row-reverse', backgroundColor: '#FFF', borderRadius: 16, overflow: 'hidden', marginBottom: 16, height: 130 },
   cardImage: { width: 110, height: '100%', resizeMode: 'cover' },
   
   cardContent: { flex: 1, padding: 12 },
@@ -145,8 +145,8 @@ const styles = StyleSheet.create({
   dateRow: { flexDirection: 'row', alignItems: 'center', gap: 4, alignSelf: 'flex-end' },
   dateText: { fontSize: 11, color: COLORS.textMuted },
   
-  cardTitle: { fontSize: 15, fontWeight: '800', color: COLORS.textPrimary, textAlign: 'right', marginBottom: 4, lineHeight: 22 },
-  cardDesc: { fontSize: 12, color: COLORS.textSecondary, textAlign: 'right', lineHeight: 18 },
+  cardTitle: { fontSize: 15, fontWeight: '800', color: COLORS.textPrimary, textAlign: 'left', marginBottom: 4, lineHeight: 22 },
+  cardDesc: { fontSize: 12, color: COLORS.textSecondary, textAlign: 'left', lineHeight: 18 },
 
   emptyContainer: { paddingVertical: 80, alignItems: 'center', justifyContent: 'center' },
   emptyText: { marginTop: 16, fontSize: 16, color: COLORS.textMuted, fontWeight: '600' },

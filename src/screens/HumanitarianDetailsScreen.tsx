@@ -319,12 +319,12 @@ const styles = StyleSheet.create({
   sliderIndicator: { position: 'absolute', bottom: 10, alignSelf: 'center', backgroundColor: 'rgba(0,0,0,0.6)', paddingHorizontal: 12, paddingVertical: 4, borderRadius: 12 },
   sliderIndicatorText: { color: '#FFF', fontSize: 12, fontWeight: '700' },
   
-  headerRow: { flexDirection: 'row-reverse', alignItems: 'center', padding: SPACING.md, paddingBottom: 0 },
-  title: { fontSize: 22, fontWeight: '800', color: COLORS.textPrimary, flex: 1, textAlign: 'center' },
+  headerRow: { flexDirection: 'row', alignItems: 'center', padding: SPACING.md, paddingBottom: 0 },
+  title: { fontSize: 22, fontWeight: '800', color: COLORS.textPrimary, flex: 1, textAlign: 'left' },
   urgentBadge: { backgroundColor: '#FEE2E2', paddingHorizontal: 16, paddingVertical: 8, borderRadius: 16, marginRight: 12 },
   urgentText: { color: COLORS.danger, fontWeight: '900', fontSize: 18 },
   
-  description: { fontSize: 16, color: COLORS.textSecondary, textAlign: 'right', padding: SPACING.md, lineHeight: 24 },
+  description: { fontSize: 16, color: COLORS.textSecondary, textAlign: 'left', padding: SPACING.md, lineHeight: 24 },
   
   completedSection: { alignItems: 'center', padding: 24, backgroundColor: '#ECFDF5', margin: SPACING.md, borderRadius: 16, borderWidth: 1, borderColor: '#A7F3D0' },
   completedTitle: { fontSize: 24, fontWeight: '900', color: '#065F46', marginTop: 16, marginBottom: 12 },
@@ -335,7 +335,7 @@ const styles = StyleSheet.create({
   
   statsCard: { backgroundColor: COLORS.surface, margin: SPACING.md, padding: 20, borderRadius: 16, ...SHADOWS.small },
   currencyHeaderTitle: { fontSize: 16, fontWeight: '800', color: COLORS.textPrimary, textAlign: 'center', marginBottom: 16, backgroundColor: '#F1F5F9', paddingVertical: 8, borderRadius: 8 },
-  statsRow: { flexDirection: 'row-reverse', justifyContent: 'center', alignItems: 'center', marginBottom: 16 },
+  statsRow: { flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginBottom: 16 },
   statBox: { flex: 1, alignItems: 'center' },
   statDivider: { width: 1, height: 40, backgroundColor: COLORS.border, marginHorizontal: 16 },
   statLabel: { fontSize: 13, color: COLORS.textSecondary, marginBottom: 6 },
@@ -347,21 +347,21 @@ const styles = StyleSheet.create({
   
   secondaryStatsContainer: { marginTop: 16, paddingTop: 16, borderTopWidth: 1, borderColor: COLORS.border },
   secondaryStatsTitle: { fontSize: 13, color: COLORS.textMuted, textAlign: 'center', marginBottom: 8 },
-  secondaryStatsRow: { flexDirection: 'row-reverse', justifyContent: 'center', flexWrap: 'wrap', gap: 16 },
+  secondaryStatsRow: { flexDirection: 'row', justifyContent: 'center', flexWrap: 'wrap', gap: 16 },
   secondaryStatText: { fontSize: 14, fontWeight: '700', color: COLORS.textSecondary, backgroundColor: '#F1F5F9', paddingHorizontal: 12, paddingVertical: 4, borderRadius: 12 },
   
   donationSection: { margin: SPACING.md, padding: 20, backgroundColor: COLORS.surface, borderRadius: 16, ...SHADOWS.small },
-  sectionTitle: { fontSize: 18, fontWeight: '800', color: COLORS.textPrimary, textAlign: 'right', marginBottom: 16 },
+  sectionTitle: { fontSize: 18, fontWeight: '800', color: COLORS.textPrimary, textAlign: 'left', marginBottom: 16 },
   
-  explanationBox: { flexDirection: 'row-reverse', backgroundColor: '#F0F9FF', padding: 12, borderRadius: 8, marginBottom: 16, borderWidth: 1, borderColor: '#BAE6FD' },
-  explanationText: { flex: 1, fontSize: 15, color: '#0369A1', textAlign: 'right', lineHeight: 22, fontWeight: '600' },
+  explanationBox: { flexDirection: 'row', backgroundColor: '#F0F9FF', padding: 12, borderRadius: 8, marginBottom: 16, borderWidth: 1, borderColor: '#BAE6FD' },
+  explanationText: { flex: 1, fontSize: 15, color: '#0369A1', textAlign: 'left', lineHeight: 22, fontWeight: '600' },
   
-  bankAccountBox: { flexDirection: 'row-reverse', alignItems: 'center', backgroundColor: '#F8FAFC', padding: 16, borderRadius: 12, marginBottom: 16, borderWidth: 1, borderColor: COLORS.border },
-  bankAccountLabel: { fontSize: 13, color: COLORS.textSecondary, textAlign: 'right', marginBottom: 4 },
-  bankAccountValue: { fontSize: 15, fontWeight: '700', color: COLORS.textPrimary, textAlign: 'right' },
+  bankAccountBox: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#F8FAFC', padding: 16, borderRadius: 12, marginBottom: 16, borderWidth: 1, borderColor: COLORS.border },
+  bankAccountLabel: { fontSize: 13, color: COLORS.textSecondary, textAlign: 'left', marginBottom: 4 },
+  bankAccountValue: { fontSize: 15, fontWeight: '700', color: COLORS.textPrimary, textAlign: 'left' },
   
-  subLabel: { fontSize: 15, fontWeight: '800', color: COLORS.textPrimary, textAlign: 'right', marginBottom: 12 },
-  imagesScroll: { flexDirection: 'row-reverse' },
+  subLabel: { fontSize: 15, fontWeight: '800', color: COLORS.textPrimary, textAlign: 'left', marginBottom: 12 },
+  imagesScroll: { flexDirection: 'row' },
   donationImage: { width: 150, height: 150, borderRadius: 12, marginLeft: 12, borderWidth: 1, borderColor: COLORS.border },
 
   fullScreenModalBg: { flex: 1, backgroundColor: 'rgba(0,0,0,0.9)', justifyContent: 'center', alignItems: 'center' },

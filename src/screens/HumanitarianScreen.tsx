@@ -99,14 +99,15 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   navCard: { 
-    flexDirection: 'row-reverse', 
+    flexDirection: 'row', 
     alignItems: 'center', 
     backgroundColor: '#FFF', 
     borderRadius: 16, 
     padding: 16, 
     ...SHADOWS.medium, 
     borderWidth: 1, 
-    borderColor: COLORS.border 
+    borderColor: COLORS.border,
+    gap: 16
   },
   iconWrapper: {
     width: 64,
@@ -114,22 +115,22 @@ const styles = StyleSheet.create({
     borderRadius: 32,
     justifyContent: 'center',
     alignItems: 'center',
-    marginLeft: 16,
   },
   cardTextContainer: { 
     flex: 1, 
-    alignItems: 'flex-end' 
+    alignItems: 'flex-start' 
   },
   cardTitle: {
     fontSize: 18,
     fontWeight: '800',
     color: COLORS.textPrimary,
     marginBottom: 4,
+    textAlign: 'left'
   },
   cardDesc: {
     fontSize: 14,
     color: COLORS.textSecondary,
-    textAlign: 'right',
+    textAlign: 'left',
     lineHeight: 20,
   }
 });

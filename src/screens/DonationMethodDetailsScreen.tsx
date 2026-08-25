@@ -132,16 +132,16 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: COLORS.background },
   content: { padding: SPACING.md, paddingBottom: 100 },
   card: { backgroundColor: COLORS.surface, borderRadius: 16, padding: 20, ...SHADOWS.medium },
-  cardTitle: { fontSize: 22, fontWeight: '800', color: COLORS.textPrimary, textAlign: 'right', marginBottom: 16 },
-  cardDesc: { fontSize: 16, color: COLORS.textSecondary, textAlign: 'right', lineHeight: 26, marginBottom: 24 },
+  cardTitle: { fontSize: 22, fontWeight: '800', color: COLORS.textPrimary, textAlign: 'left', marginBottom: 16 },
+  cardDesc: { fontSize: 16, color: COLORS.textSecondary, textAlign: 'left', lineHeight: 26, marginBottom: 24 },
   
-  accountBox: { backgroundColor: '#F8FAFC', borderRadius: 12, padding: 16, alignItems: 'flex-end', marginBottom: 16, borderWidth: 1, borderColor: COLORS.border },
+  accountBox: { backgroundColor: '#F8FAFC', borderRadius: 12, padding: 16, alignItems: 'flex-start', marginBottom: 16, borderWidth: 1, borderColor: COLORS.border },
   bankName: { fontSize: 14, color: COLORS.textSecondary, marginBottom: 8, fontWeight: '700' },
-  copyRow: { flexDirection: 'row-reverse', alignItems: 'center', gap: 12, backgroundColor: '#FFF', paddingHorizontal: 12, paddingVertical: 10, borderRadius: 8, borderWidth: 1, borderColor: '#E2E8F0' },
+  copyRow: { flexDirection: 'row', alignItems: 'center', gap: 12, backgroundColor: '#FFF', paddingHorizontal: 12, paddingVertical: 10, borderRadius: 8, borderWidth: 1, borderColor: '#E2E8F0' },
   iban: { fontSize: 16, fontWeight: '800', color: COLORS.textPrimary, letterSpacing: 1 },
-  contactName: { fontSize: 16, color: COLORS.textSecondary, textAlign: 'right', marginTop: 12, marginBottom: 12 },
+  contactName: { fontSize: 16, color: COLORS.textSecondary, textAlign: 'left', marginTop: 12, marginBottom: 12 },
   
-  subLabel: { fontSize: 16, fontWeight: '800', color: COLORS.textPrimary, textAlign: 'right', marginBottom: 16 },
+  subLabel: { fontSize: 16, fontWeight: '800', color: COLORS.textPrimary, textAlign: 'left', marginBottom: 16 },
   sliderImageWrapper: { width: SCREEN_WIDTH - (SPACING.md * 2) - 40, height: 300, justifyContent: 'center', alignItems: 'center' }, // card padding is 20 each side
   donationImage: { width: '100%', height: '100%', borderRadius: 12, backgroundColor: '#000' },
   sliderHint: { textAlign: 'center', color: COLORS.textMuted, fontSize: 13, marginTop: 12, fontWeight: '700' },

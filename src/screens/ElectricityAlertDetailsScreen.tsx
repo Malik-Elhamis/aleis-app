@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   },
   
   areaContainer: {
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 16
   },
@@ -99,9 +99,9 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: '800',
     color: ELECTRIC_COLORS.textPrimary,
-    marginRight: 8,
+    marginLeft: 8,
     flex: 1,
-    textAlign: 'right'
+    textAlign: 'left'
   },
   
   divider: {
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
   },
   
   detailRow: {
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     marginBottom: 20
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
   },
   
   badge: {
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 12,
     paddingVertical: 6,
@@ -133,11 +133,10 @@ const styles = StyleSheet.create({
   badgeText: {
     fontSize: 14,
     fontWeight: '700',
-    marginRight: 6
   },
   
   timeContainer: {
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: ELECTRIC_COLORS.primaryLight,
     paddingHorizontal: 12,
@@ -164,12 +163,12 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: ELECTRIC_COLORS.textPrimary,
     marginBottom: 8,
-    textAlign: 'right'
+    textAlign: 'left'
   },
   notesText: {
     fontSize: 15,
     color: ELECTRIC_COLORS.textSecondary,
-    textAlign: 'right',
+    textAlign: 'left',
     lineHeight: 24
   },
   

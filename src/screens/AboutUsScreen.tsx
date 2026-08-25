@@ -5,13 +5,16 @@ import {
   StyleSheet, 
   ScrollView, 
   Image,
-  ActivityIndicator
+  ActivityIndicator,
+  TouchableOpacity
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS, SPACING, SHADOWS } from '../config/theme';
 import { subscribeAboutUsSettings } from '../services/firestoreService';
 
 export const AboutUsScreen: React.FC = () => {
+  const navigation = useNavigation();
   const [programmerName, setProgrammerName] = useState('جاري التحميل...');
   const [programmerImage, setProgrammerImage] = useState('');
   const [programmerText, setProgrammerText] = useState('جاري التحميل...');
@@ -83,10 +86,15 @@ export const AboutUsScreen: React.FC = () => {
           </View>
 
           <View style={[styles.section, SHADOWS.small]}>
-            <View style={styles.sectionHeader}>
+            <TouchableOpacity 
+              activeOpacity={0.8}
+              onLongPress={() => navigation.navigate('AdminLogin' as never)}
+              delayLongPress={2000}
+              style={styles.sectionHeader}
+            >
               <Ionicons name="settings" size={24} color={COLORS.primary} />
               <Text style={styles.sectionTitle}>إدارة التطبيق</Text>
-            </View>
+            </TouchableOpacity>
             <View style={styles.profileContainer}>
               {managementImage ? (
                 <Image source={{ uri: managementImage }} style={styles.profileImage} />
@@ -126,17 +134,17 @@ const styles = StyleSheet.create({
   body: { padding: SPACING.lg, marginTop: -20 },
   
   section: { backgroundColor: COLORS.surface, borderRadius: 16, padding: 20, marginBottom: 16 },
-  sectionHeader: { flexDirection: 'row-reverse', alignItems: 'center', marginBottom: 16, gap: 8 },
-  sectionTitle: { fontSize: 18, fontWeight: '800', color: COLORS.primary, textAlign: 'right' },
-  sectionText: { fontSize: 14, color: COLORS.textSecondary, textAlign: 'right', lineHeight: 24 },
+  sectionHeader: { flexDirection: 'row', alignItems: 'center', marginBottom: 16, gap: 8 },
+  sectionTitle: { fontSize: 18, fontWeight: '800', color: COLORS.primary, textAlign: 'left' },
+  sectionText: { fontSize: 14, color: COLORS.textSecondary, textAlign: 'left', lineHeight: 24 },
 
   profileContainer: { alignItems: 'center', marginBottom: 16, paddingBottom: 16, borderBottomWidth: 1, borderBottomColor: COLORS.border },
   profileImage: { width: 260, height: 260, borderRadius: 130, borderWidth: 5, borderColor: COLORS.primaryLight, marginBottom: 12 },
   profilePlaceholder: { width: 260, height: 260, borderRadius: 130, backgroundColor: '#374151', justifyContent: 'center', alignItems: 'center', marginBottom: 12 },
   profileName: { fontSize: 26, fontWeight: '900', color: COLORS.textPrimary, textAlign: 'center' },
 
-  bulletPoint: { flexDirection: 'row-reverse', alignItems: 'flex-start', gap: 12, marginBottom: 12 },
-  bulletText: { flex: 1, fontSize: 14, color: COLORS.textPrimary, textAlign: 'right', lineHeight: 22 },
+  bulletPoint: { flexDirection: 'row', alignItems: 'flex-start', gap: 12, marginBottom: 12 },
+  bulletText: { flex: 1, fontSize: 14, color: COLORS.textPrimary, textAlign: 'left', lineHeight: 22 },
   
   footerInfo: { alignItems: 'center', marginTop: 24 },
   footerText: { fontSize: 14, color: COLORS.textMuted, fontWeight: '600' },

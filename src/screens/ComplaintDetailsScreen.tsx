@@ -129,24 +129,24 @@ const styles = StyleSheet.create({
   content: { padding: SPACING.md, paddingBottom: 40 },
   
   mainCard: { backgroundColor: COLORS.surface, borderRadius: 16, padding: 16, marginBottom: 20 },
-  cardHeaderRow: { flexDirection: 'row-reverse', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 },
-  categoryTag: { flexDirection: 'row-reverse', alignItems: 'center', backgroundColor: COLORS.primaryLight, paddingHorizontal: 8, paddingVertical: 4, borderRadius: 8 },
+  cardHeaderRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 },
+  categoryTag: { flexDirection: 'row', alignItems: 'center', backgroundColor: COLORS.primaryLight, paddingHorizontal: 8, paddingVertical: 4, borderRadius: 8 },
   categoryTagText: { fontSize: 12, color: COLORS.primary, fontWeight: '700' },
   
-  title: { fontSize: 18, fontWeight: '800', color: COLORS.textPrimary, textAlign: 'right', marginBottom: 8 },
-  description: { fontSize: 14, color: COLORS.textSecondary, textAlign: 'right', lineHeight: 22, marginBottom: 16 },
+  title: { fontSize: 18, fontWeight: '800', color: COLORS.textPrimary, textAlign: 'left', marginBottom: 8 },
+  description: { fontSize: 14, color: COLORS.textSecondary, textAlign: 'left', lineHeight: 22, marginBottom: 16 },
   
-  locationRow: { flexDirection: 'row-reverse', alignItems: 'center', backgroundColor: '#F8FAFC', padding: 8, borderRadius: 8 },
-  locationText: { fontSize: 13, color: COLORS.textSecondary, flex: 1, textAlign: 'right' },
+  locationRow: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#F8FAFC', padding: 8, borderRadius: 8 },
+  locationText: { fontSize: 13, color: COLORS.textSecondary, flex: 1, textAlign: 'left' },
   
   imagesSection: { marginBottom: 20 },
-  sectionTitle: { fontSize: 16, fontWeight: '800', color: COLORS.textPrimary, textAlign: 'right', marginBottom: 12, marginRight: 4 },
+  sectionTitle: { fontSize: 16, fontWeight: '800', color: COLORS.textPrimary, textAlign: 'left', marginBottom: 12, marginRight: 4 },
   image: { width: 280, height: 200, borderRadius: 16, marginLeft: 12, backgroundColor: COLORS.border },
   
   replyCard: { backgroundColor: '#F0FDF4', borderRadius: 16, padding: 16, marginBottom: 20, borderWidth: 1, borderColor: '#D1FAE5' },
-  replyHeader: { flexDirection: 'row-reverse', alignItems: 'center', marginBottom: 8, gap: 8 },
+  replyHeader: { flexDirection: 'row', alignItems: 'center', marginBottom: 8, gap: 8 },
   replyTitle: { fontSize: 16, fontWeight: '800', color: '#059669' },
-  replyText: { fontSize: 14, color: '#065F46', textAlign: 'right', lineHeight: 22 },
+  replyText: { fontSize: 14, color: '#065F46', textAlign: 'left', lineHeight: 22 },
   
   footerInfo: { alignItems: 'center', marginTop: 10 },
   footerText: { fontSize: 12, color: COLORS.textMuted, marginBottom: 4 },

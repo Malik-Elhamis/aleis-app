@@ -125,13 +125,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '800',
     color: COLORS.primaryDark,
-    textAlign: 'right',
+    textAlign: 'left',
     marginBottom: SPACING.sm,
   },
   cardDescription: {
     fontSize: 14,
     color: COLORS.textSecondary,
-    textAlign: 'right',
+    textAlign: 'left',
     lineHeight: 22,
   },
 });

@@ -43,6 +43,7 @@ export type RootStackParamList = {
   ElectricityHub: undefined;
   ElectricityFaults: undefined;
   ElectricityAlerts: undefined;
+  ElectricitySchedules: undefined;
   CleaningFees: undefined;
   
   // Admin Routes
@@ -56,6 +57,7 @@ export type RootStackParamList = {
   AdminViolationsList: undefined;
   // New Admin Modules
   AdminElectricity: undefined;
+  AdminElectricitySchedules: undefined;
   AdminHumanitarian: undefined;
   AdminDonations: undefined;
   AdminDonationMethodForm: { method?: import('../types').DonationMethod };
@@ -95,6 +97,20 @@ export type RootStackParamList = {
   AskMunicipalityHub: undefined;
   AdminMunicipalityPapers: undefined;
   AdminMunicipalityQuestions: undefined;
+  
+  TractorSchedule: undefined;
+  AdminTractorSchedule: undefined;
+  // Events
+  Events: undefined;
+  EventDetails: { event: import('../types').EventItem };
+  AdminEvents: undefined;
+  
+  // Notifications
+  AdminNotifications: undefined;
+
+  // Splash Screen
+  Splash: undefined;
+  AdminSplash: undefined;
 };
 
 export type MainTabParamList = {

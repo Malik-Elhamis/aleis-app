@@ -180,25 +180,25 @@ const styles = StyleSheet.create({
   tabsContainer: { flexDirection: 'column', backgroundColor: 'transparent', marginHorizontal: 16, marginTop: 16, gap: 10 },
   tabBtn: { paddingVertical: 14, paddingHorizontal: 20, borderRadius: 16, backgroundColor: '#FFF', borderWidth: 1, borderColor: COLORS.border, ...SHADOWS.small },
   tabBtnActive: { backgroundColor: '#059669', borderColor: '#059669', ...SHADOWS.medium },
-  tabContent: { flexDirection: 'row-reverse', alignItems: 'center', justifyContent: 'center', gap: 8 },
+  tabContent: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8 },
   tabText: { fontSize: 16, fontWeight: '800', color: COLORS.textSecondary },
   tabTextActive: { color: '#FFF' },
 
   content: { padding: SPACING.md, paddingBottom: 100 },
   
   card: { backgroundColor: COLORS.surface, borderRadius: 16, padding: 20, marginBottom: 16 },
-  cardTitle: { fontSize: 18, fontWeight: '800', color: COLORS.textPrimary, textAlign: 'right', marginBottom: 8 },
-  cardDesc: { fontSize: 14, color: COLORS.textSecondary, textAlign: 'right', lineHeight: 22, marginBottom: 16 },
+  cardTitle: { fontSize: 18, fontWeight: '800', color: COLORS.textPrimary, textAlign: 'left', marginBottom: 8 },
+  cardDesc: { fontSize: 14, color: COLORS.textSecondary, textAlign: 'left', lineHeight: 22, marginBottom: 16 },
   
-  accountBox: { backgroundColor: '#F3F4F6', borderRadius: 12, padding: 12, alignItems: 'flex-end', marginBottom: 12 },
+  accountBox: { backgroundColor: '#F3F4F6', borderRadius: 12, padding: 12, alignItems: 'flex-start', marginBottom: 12 },
   bankName: { fontSize: 13, color: COLORS.textSecondary, marginBottom: 8, fontWeight: '700' },
-  copyRow: { flexDirection: 'row-reverse', alignItems: 'center', gap: 12, backgroundColor: '#FFF', paddingHorizontal: 12, paddingVertical: 8, borderRadius: 8, borderWidth: 1, borderColor: COLORS.border },
+  copyRow: { flexDirection: 'row', alignItems: 'center', gap: 12, backgroundColor: '#FFF', paddingHorizontal: 12, paddingVertical: 8, borderRadius: 8, borderWidth: 1, borderColor: COLORS.border },
   iban: { fontSize: 15, fontWeight: '800', color: COLORS.textPrimary, letterSpacing: 1 },
   
-  contactName: { fontSize: 15, color: COLORS.textSecondary, textAlign: 'right', marginTop: 8, marginBottom: 8 },
+  contactName: { fontSize: 15, color: COLORS.textSecondary, textAlign: 'left', marginTop: 8, marginBottom: 8 },
 
-  subLabel: { fontSize: 15, fontWeight: '800', color: COLORS.textPrimary, textAlign: 'right', marginBottom: 12 },
-  imagesScroll: { flexDirection: 'row-reverse' },
+  subLabel: { fontSize: 15, fontWeight: '800', color: COLORS.textPrimary, textAlign: 'left', marginBottom: 12 },
+  imagesScroll: { flexDirection: 'row' },
   donationImage: { width: 120, height: 120, borderRadius: 12, marginLeft: 12, borderWidth: 1, borderColor: COLORS.border, backgroundColor: '#000' },
   
   ongoingCard: { backgroundColor: COLORS.surface, borderRadius: 16, marginBottom: 16, overflow: 'hidden' },
@@ -207,10 +207,10 @@ const styles = StyleSheet.create({
   completedOverlay: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(16, 185, 129, 0.7)', justifyContent: 'center', alignItems: 'center' },
   completedOverlayText: { color: '#FFF', fontSize: 18, fontWeight: '800', marginTop: 8 },
   ongoingContent: { padding: 16 },
-  ongoingTitle: { fontSize: 18, fontWeight: '800', color: COLORS.textPrimary, textAlign: 'right', marginBottom: 8 },
-  ongoingDesc: { fontSize: 14, color: COLORS.textSecondary, textAlign: 'right', lineHeight: 22, marginBottom: 12 },
+  ongoingTitle: { fontSize: 18, fontWeight: '800', color: COLORS.textPrimary, textAlign: 'left', marginBottom: 8 },
+  ongoingDesc: { fontSize: 14, color: COLORS.textSecondary, textAlign: 'left', lineHeight: 22, marginBottom: 12 },
   
-  detailsBtn: { flexDirection: 'row-reverse', alignItems: 'center', justifyContent: 'center', backgroundColor: '#ECFDF5', paddingVertical: 10, borderRadius: 8, marginTop: 8 },
+  detailsBtn: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: '#ECFDF5', paddingVertical: 10, borderRadius: 8, marginTop: 8 },
   detailsBtnText: { fontSize: 14, fontWeight: '700', color: '#059669', marginLeft: 4 },
 
   emptyText: { marginTop: 40, fontSize: 16, color: COLORS.textMuted, fontWeight: '600', textAlign: 'center' },

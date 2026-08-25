@@ -60,11 +60,14 @@ export const ElectricityAlertsScreen: React.FC = () => {
         onPress={() => navigation.navigate('ElectricityAlertDetails', { alert: item })}
       >
         <View style={styles.cardHeader}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1, marginRight: 12 }}>
+            <Ionicons name="location" size={16} color={ELECTRIC_COLORS.primary} />
+            <Text style={styles.areaText} numberOfLines={2}>{item.area}</Text>
+          </View>
           <View style={[styles.badge, { backgroundColor: statusInfo.color + '20', borderColor: statusInfo.color }]}>
             <Ionicons name={statusInfo.icon as any} size={14} color={statusInfo.color} style={{ marginLeft: 4 }} />
             <Text style={[styles.badgeText, { color: statusInfo.color }]}>{statusInfo.label}</Text>
           </View>
-          <Text style={styles.areaText}><Ionicons name="location" size={16} /> {item.area}</Text>
         </View>
 
         {item.notes ? (
@@ -120,15 +123,15 @@ const styles = StyleSheet.create({
   listPadding: { padding: 16, paddingBottom: 60 },
   
   card: { backgroundColor: ELECTRIC_COLORS.surface, borderRadius: 16, padding: 16, marginBottom: 16, borderWidth: 1, borderColor: '#E2E8F0', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.05, shadowRadius: 4, elevation: 2 },
-  cardHeader: { flexDirection: 'row-reverse', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 },
-  areaText: { fontSize: 16, fontWeight: '700', color: ELECTRIC_COLORS.primary, textAlign: 'right', flex: 1 },
+  cardHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 },
+  areaText: { fontSize: 16, fontWeight: '700', color: ELECTRIC_COLORS.primary, textAlign: 'left', flex: 1, marginLeft: 4 },
   
-  badge: { flexDirection: 'row-reverse', alignItems: 'center', paddingHorizontal: 8, paddingVertical: 4, borderRadius: 12, borderWidth: 1 },
+  badge: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 8, paddingVertical: 4, borderRadius: 12, borderWidth: 1 },
   badgeText: { fontSize: 12, fontWeight: '700', marginRight: 4 },
   
-  notesText: { fontSize: 14, color: ELECTRIC_COLORS.textSecondary, textAlign: 'right', lineHeight: 22, marginBottom: 12 },
+  notesText: { fontSize: 14, color: ELECTRIC_COLORS.textSecondary, textAlign: 'left', lineHeight: 22, marginBottom: 12 },
   
-  timeContainer: { flexDirection: 'row-reverse', alignItems: 'center', backgroundColor: ELECTRIC_COLORS.primaryLight, padding: 8, borderRadius: 8, gap: 6 },
+  timeContainer: { flexDirection: 'row', alignItems: 'center', backgroundColor: ELECTRIC_COLORS.primaryLight, padding: 8, borderRadius: 8, gap: 6 },
   timeText: { fontSize: 13, fontWeight: '700', color: ELECTRIC_COLORS.primary },
 
   emptyState: { alignItems: 'center', justifyContent: 'center', paddingVertical: 60 },

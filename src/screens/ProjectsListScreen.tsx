@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
     padding: SPACING.md,
   },
   badgeRow: {
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 10,
@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '800',
     color: COLORS.textPrimary,
-    textAlign: 'right',
+    textAlign: 'left',
     marginBottom: 8,
   },
   progressContainer: { 
@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   datesContainer: {
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 4,
     marginBottom: 8,

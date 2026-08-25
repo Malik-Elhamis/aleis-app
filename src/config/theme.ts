@@ -91,4 +91,5 @@ export const RTL_FLEX_ROW: StyleProp<ViewStyle> = {
   flexDirection: isRTL ? 'row' : 'row-reverse',
 };
 
+// Used for inputs and text alignment in RTL modes
 export const RTL_TEXT_ALIGN = 'right' as const;

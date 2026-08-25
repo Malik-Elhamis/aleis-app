@@ -103,7 +103,7 @@ export const CleaningFeesScreen: React.FC<any> = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: COLORS.background },
   loadingContainer: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-  header: { backgroundColor: COLORS.primary, paddingTop: 60, paddingBottom: 20, paddingHorizontal: 20, flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse', alignItems: 'center', justifyContent: 'space-between' },
+  header: { backgroundColor: COLORS.primary, paddingTop: 60, paddingBottom: 20, paddingHorizontal: 20, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
   headerTitle: { fontSize: 22, fontWeight: '800', color: '#FFF' },
   backBtn: { padding: 4 },
   
@@ -115,17 +115,17 @@ const styles = StyleSheet.create({
   slogan: { fontSize: 14, color: COLORS.textSecondary, fontWeight: '700', textAlign: 'center' },
 
   tableContainer: { backgroundColor: '#FFF', borderRadius: 16, overflow: 'hidden', borderWidth: 1, borderColor: COLORS.border, marginBottom: 24, ...SHADOWS.medium },
-  tableHeaderRow: { flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse', backgroundColor: '#1E293B' }, // Premium Dark Header
+  tableHeaderRow: { flexDirection: 'row', backgroundColor: '#1E293B' }, // Premium Dark Header
   th: { paddingVertical: 16, paddingHorizontal: 4, justifyContent: 'center', alignItems: 'center', borderLeftWidth: 1, borderLeftColor: 'rgba(255,255,255,0.1)' },
   thText: { color: '#F8FAFC', fontSize: 13, fontWeight: '800', textAlign: 'center' },
   
-  tableRow: { flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse', borderBottomWidth: 1, borderBottomColor: COLORS.border },
+  tableRow: { flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: COLORS.border },
   tableRowAlt: { backgroundColor: '#F8FAFC' },
   td: { paddingVertical: 18, paddingHorizontal: 4, justifyContent: 'center', alignItems: 'center', borderLeftWidth: 1, borderLeftColor: COLORS.border },
   tdTextActivity: { fontSize: 13, fontWeight: '900', color: '#334155', textAlign: 'center' },
   tdTextAmount: { fontSize: 18, fontWeight: '900' },
 
   notesContainer: { backgroundColor: '#F0FDF4', padding: 16, borderRadius: 16, borderWidth: 1, borderColor: '#BBF7D0' },
-  noteRow: { flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse', alignItems: 'flex-start', gap: 8, marginBottom: 8 },
+  noteRow: { flexDirection: 'row', alignItems: 'flex-start', gap: 8, marginBottom: 8 },
   noteText: { flex: 1, fontSize: 13, color: '#166534', fontWeight: '700', textAlign: 'right', lineHeight: 20 }
 });

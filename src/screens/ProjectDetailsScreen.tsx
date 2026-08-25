@@ -245,28 +245,28 @@ const styles = StyleSheet.create({
 
   content: { padding: SPACING.lg, backgroundColor: COLORS.background },
   
-  headerRow: { flexDirection: 'row-reverse', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 },
+  headerRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 },
   statusChip: { backgroundColor: '#DBEAFE', paddingHorizontal: 12, paddingVertical: 6, borderRadius: 16 },
   statusChipText: { color: '#2563EB', fontSize: 13, fontWeight: '700' },
   categoryBadge: { fontSize: 14, color: COLORS.textSecondary, fontWeight: '600' },
 
-  title: { fontSize: 24, fontWeight: '900', color: COLORS.textPrimary, textAlign: 'right', marginBottom: 16, lineHeight: 34 },
+  title: { fontSize: 24, fontWeight: '900', color: COLORS.textPrimary, textAlign: 'left', marginBottom: 16, lineHeight: 34 },
   
-  sectionTitle: { fontSize: 16, fontWeight: '800', color: COLORS.primary, textAlign: 'right', marginBottom: 8 },
-  description: { fontSize: 15, color: COLORS.textSecondary, textAlign: 'right', lineHeight: 26, marginBottom: 16 },
+  sectionTitle: { fontSize: 16, fontWeight: '800', color: COLORS.primary, textAlign: 'left', marginBottom: 8 },
+  description: { fontSize: 15, color: COLORS.textSecondary, textAlign: 'left', lineHeight: 26, marginBottom: 16 },
   
   notesContainer: { backgroundColor: '#FEF3C7', padding: 12, borderRadius: 8, marginBottom: 16 },
-  notesText: { fontSize: 14, color: '#92400E', textAlign: 'right', lineHeight: 22 },
+  notesText: { fontSize: 14, color: '#92400E', textAlign: 'left', lineHeight: 22 },
 
   divider: { height: 1, backgroundColor: '#E2E8F0', marginVertical: 20 },
   
   progressContainer: { marginBottom: 24 },
-  progressHeaderRow: { flexDirection: 'row-reverse', justifyContent: 'space-between', marginBottom: 8 },
+  progressHeaderRow: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 8 },
   progressText: { fontSize: 14, fontWeight: '800', color: COLORS.textPrimary },
   progressBarTrack: { height: 8, backgroundColor: '#E2E8F0', borderRadius: 4, overflow: 'hidden' },
   progressBarFill: { height: '100%', borderRadius: 4 },
 
-  infoGrid: { flexDirection: 'row-reverse', flexWrap: 'wrap', gap: 12 },
+  infoGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 12 },
   infoCard: { 
     width: '48%', 
     backgroundColor: '#FFF', 

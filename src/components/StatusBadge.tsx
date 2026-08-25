@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { WaterPumpingStatus, ComplaintStatus } from '../types';
+import { WaterPumpingStatus, ComplaintStatus, ElectricityPumpingStatus } from '../types';
 import { COLORS } from '../config/theme';
 
 interface StatusBadgeProps {
-  type: 'water' | 'complaint' | 'violation';
-  status: WaterPumpingStatus | ComplaintStatus;
+  type: 'water' | 'complaint' | 'violation' | 'electricity';
+  status: WaterPumpingStatus | ComplaintStatus | ElectricityPumpingStatus | string;
   customText?: string;
 }
 

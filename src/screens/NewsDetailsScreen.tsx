@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
   
   divider: { height: 1, backgroundColor: COLORS.border, marginVertical: 24 },
   
-  content: { fontSize: 16, color: COLORS.textPrimary, textAlign: 'right', lineHeight: 30 },
+  content: { fontSize: 16, color: COLORS.textPrimary, textAlign: 'left', lineHeight: 30 },
   
   inlineGallery: { 
     flexDirection: 'row', 

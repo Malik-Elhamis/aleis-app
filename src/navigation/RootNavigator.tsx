@@ -3,7 +3,6 @@ import { View, ActivityIndicator, StyleSheet } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RootStackParamList } from './types';
 import { useAuth } from '../context/AuthContext';
-import { AuthScreen } from '../screens/AuthScreen';
 import { HomeScreen } from '../screens/HomeScreen';
 import { ProfileScreen } from '../screens/ProfileScreen';
 import { ServicesScreen } from '../screens/ServicesScreen';
@@ -44,7 +43,10 @@ import { CleaningFeesScreen } from '../screens/CleaningFeesScreen';
 import { ElectricityHubScreen } from '../screens/ElectricityHubScreen';
 import { ElectricityFaultsScreen } from '../screens/ElectricityFaultsScreen';
 import { ElectricityAlertsScreen } from '../screens/ElectricityAlertsScreen';
+import { ElectricitySchedulesScreen } from '../screens/ElectricitySchedulesScreen';
 import { ElectricityAlertDetailsScreen } from '../screens/ElectricityAlertDetailsScreen';
+import { TractorScheduleScreen } from '../screens/TractorScheduleScreen';
+import { EventsScreen } from '../screens/EventsScreen';
 
 // Admin Screens
 import { AdminLoginScreen } from '../screens/admin/AdminLoginScreen';
@@ -56,6 +58,7 @@ import { AskMunicipalityHubScreen } from '../screens/AskMunicipalityHubScreen';
 import { AdminMunicipalityPapersScreen } from '../screens/admin/AdminMunicipalityPapersScreen';
 import { AdminMunicipalityQuestionsScreen } from '../screens/admin/AdminMunicipalityQuestionsScreen';
 import { AdminWaterSchedulesScreen } from '../screens/admin/AdminWaterSchedulesScreen';
+import { AdminElectricitySchedulesScreen } from '../screens/admin/AdminElectricitySchedulesScreen';
 import { AdminWaterFaultsScreen } from '../screens/admin/AdminWaterFaultsScreen';
 import { AdminProjectsScreen } from '../screens/admin/AdminProjectsScreen';
 import { AdminProjectsListScreen } from '../screens/admin/AdminProjectsListScreen';
@@ -86,6 +89,12 @@ import { AdminAleisScreen } from '../screens/admin/AdminAleisScreen';
 import { AdminEmergencyScreen } from '../screens/admin/AdminEmergencyScreen';
 import { AleisDetailsScreen } from '../screens/AleisDetailsScreen';
 import { AdminServiceProvidersScreen } from '../screens/admin/AdminServiceProvidersScreen';
+import { AdminTractorScheduleScreen } from '../screens/admin/AdminTractorScheduleScreen';
+import { AdminEventsScreen } from '../screens/admin/AdminEventsScreen';
+import { EventDetailsScreen } from '../screens/EventDetailsScreen';
+import { AdminNotificationsScreen } from '../screens/admin/AdminNotificationsScreen';
+import { DynamicSplashScreen } from '../screens/DynamicSplashScreen';
+import { AdminSplashScreen } from '../screens/admin/AdminSplashScreen';
 import { BottomTabNavigator } from './BottomTabNavigator';
 
 import { COLORS } from '../config/theme';
@@ -105,6 +114,7 @@ export const RootNavigator: React.FC = () => {
 
   return (
     <Stack.Navigator
+      initialRouteName="Splash"
       screenOptions={{
         headerStyle: {
           backgroundColor: COLORS.primary,
@@ -117,6 +127,11 @@ export const RootNavigator: React.FC = () => {
         headerBackTitleVisible: false,
       }}
     >
+      <Stack.Screen
+        name="Splash"
+        component={DynamicSplashScreen}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen
         name="Home"
         component={BottomTabNavigator}
@@ -220,9 +235,14 @@ export const RootNavigator: React.FC = () => {
         options={{ title: 'قسم المياه' }}
       />
       <Stack.Screen
-        name="WaterSchedule"
-        component={WaterScheduleScreen}
-        options={{ title: 'جدول توزيع المياه' }}
+        name="WaterSchedule" 
+        component={WaterScheduleScreen} 
+        options={{ title: 'جدول توزيع المياه' }} 
+      />
+      <Stack.Screen 
+        name="ElectricitySchedules" 
+        component={ElectricitySchedulesScreen} 
+        options={{ title: 'جداول انقطاع الكهرباء' }} 
       />
       <Stack.Screen
         name="WaterFaults"
@@ -262,6 +282,7 @@ export const RootNavigator: React.FC = () => {
       <Stack.Screen name="AdminLogin" component={AdminLoginScreen} options={{ headerShown: false }} />
       <Stack.Screen name="AdminDashboard" component={AdminDashboardScreen} options={{ headerShown: false }} />
       <Stack.Screen name="AdminWaterSchedules" component={AdminWaterSchedulesScreen} options={{ title: 'إدارة جداول المياه' }} />
+      <Stack.Screen name="AdminElectricitySchedules" component={AdminElectricitySchedulesScreen} options={{ title: 'إدارة جداول الكهرباء' }} />
       <Stack.Screen name="AdminWaterFaults" component={AdminWaterFaultsScreen} options={{ title: 'إدارة أعطال المياه' }} />
       <Stack.Screen name="AdminProjects" component={AdminProjectsScreen} options={{ title: 'المشاريع والإنجازات' }} />
       <Stack.Screen name="AdminProjectsList" component={AdminProjectsListScreen} options={({ route }) => ({ title: (route.params as any)?.title || 'قائمة المشاريع' })} />
@@ -277,6 +298,7 @@ export const RootNavigator: React.FC = () => {
       <Stack.Screen name="AskMunicipalityHub" component={AskMunicipalityHubScreen} options={{ title: 'اسأل البلدية' }} />
       <Stack.Screen name="AdminMunicipalityPapers" component={AdminMunicipalityPapersScreen} options={{ title: 'إدارة أوراق البلدية' }} />
       <Stack.Screen name="AdminMunicipalityQuestions" component={AdminMunicipalityQuestionsScreen} options={{ title: 'إدارة أسئلة البلدية' }} />
+      <Stack.Screen name="TractorSchedule" component={TractorScheduleScreen} options={{ title: 'جدول الجرار' }} />
         
       {/* New Admin Modules */}
       <Stack.Screen name="AdminHumanitarian" component={AdminHumanitarianScreen} options={{ title: 'إدارة الحالات الإنسانية' }} />
@@ -299,6 +321,12 @@ export const RootNavigator: React.FC = () => {
       <Stack.Screen name="AdminEmergency" component={AdminEmergencyScreen} options={{ title: 'إدارة الطوارئ' }} />
       <Stack.Screen name="AleisDetails" component={AleisDetailsScreen} options={{ title: 'تفاصيل العيس' }} />
       <Stack.Screen name="AdminServiceProviders" component={AdminServiceProvidersScreen} options={{ title: 'إدارة الخدمات والمهن' }} />
+      <Stack.Screen name="AdminTractorSchedule" component={AdminTractorScheduleScreen} options={{ title: 'إدارة جدول الجرار' }} />
+      <Stack.Screen name="Events" component={EventsScreen} options={{ title: 'الفعاليات' }} />
+      <Stack.Screen name="EventDetails" component={EventDetailsScreen} options={{ title: 'تفاصيل الفعالية' }} />
+      <Stack.Screen name="AdminEvents" component={AdminEventsScreen} options={{ title: 'إدارة الفعاليات' }} />
+      <Stack.Screen name="AdminNotifications" component={AdminNotificationsScreen} options={{ title: 'إدارة الإشعارات العامة' }} />
+      <Stack.Screen name="AdminSplash" component={AdminSplashScreen} options={{ title: 'إدارة شاشة البداية' }} />
     </Stack.Navigator>
   );
 };

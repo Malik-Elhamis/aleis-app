@@ -14,6 +14,7 @@ import {
   deleteDoc
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { 
   Complaint, 
   WaterScheduleItem, 
@@ -35,7 +36,9 @@ import {
   ElectricityAlert,
   ElectricityFault,
   MunicipalityQuestion,
-  MunicipalityPaper, AleisArticle
+  MunicipalityPaper, AleisArticle,
+  TractorScheduleItem, TractorScheduleNote,
+  ElectricityScheduleItem
 } from '../types';
 
 // Mock Initial Data Fallbacks (for immediate visual rich presentation)
@@ -415,6 +418,31 @@ export const subscribeWaterSchedule = (onUpdate: (items: WaterScheduleItem[]) =>
   }
 };
 
+export const subscribeElectricitySchedule = (onUpdate: (items: ElectricityScheduleItem[]) => void) => {
+  try {
+    const q = query(collection(db, 'electricity_schedules'));
+    return onSnapshot(q, (snapshot) => {
+      if (!snapshot.empty) {
+        let items = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as ElectricityScheduleItem));
+        items.sort((a, b) => {
+          const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+          const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+          return dateB - dateA;
+        });
+        onUpdate(items);
+      } else {
+        onUpdate([]);
+      }
+    }, (error) => {
+      console.warn('Electricity schedule realtime sub fallback:', error);
+      onUpdate([]);
+    });
+  } catch (e) {
+    onUpdate([]);
+    return () => {};
+  }
+};
+
 export const submitComplaintToFirestore = async (complaintData: Omit<Complaint, 'id' | 'createdAt' | 'status'>): Promise<string> => {
   try {
     const payload = {
@@ -529,6 +557,20 @@ export const deleteWaterSchedule = async (id: string) => {
 
 export const updateWaterSchedule = async (id: string, data: Partial<WaterScheduleItem>) => {
   const docRef = doc(db, 'water_schedules', id);
+  await updateDoc(docRef, data);
+};
+
+export const addElectricitySchedule = async (data: Omit<ElectricityScheduleItem, 'id'>) => {
+  const docRef = doc(collection(db, 'electricity_schedules'));
+  await setDoc(docRef, { ...data, id: docRef.id, createdAt: new Date().toISOString() });
+};
+
+export const deleteElectricitySchedule = async (id: string) => {
+  await deleteDoc(doc(db, 'electricity_schedules', id));
+};
+
+export const updateElectricitySchedule = async (id: string, data: Partial<ElectricityScheduleItem>) => {
+  const docRef = doc(db, 'electricity_schedules', id);
   await updateDoc(docRef, data);
 };
 
@@ -986,11 +1028,11 @@ export const updateHomeSliderSettings = async (images: string[]) => {
 };
 
 // --- App Settings (Logo, etc) ---
-export const subscribeAppSettings = (callback: (data: { logoUrl?: string }) => void) => {
+export const subscribeAppSettings = (callback: (data: { logoUrl?: string, splashScreenUrl?: string }) => void) => {
   const docRef = doc(db, 'settings', 'app_settings');
   return onSnapshot(docRef, (docSnap) => {
     if (docSnap.exists()) {
-      callback(docSnap.data() as { logoUrl?: string });
+      callback(docSnap.data() as { logoUrl?: string, splashScreenUrl?: string });
     } else {
       callback({});
     }
@@ -1000,6 +1042,11 @@ export const subscribeAppSettings = (callback: (data: { logoUrl?: string }) => v
 export const updateLogoUrl = async (logoUrl: string) => {
   const docRef = doc(db, 'settings', 'app_settings');
   await setDoc(docRef, { logoUrl }, { merge: true });
+};
+
+export const updateSplashScreenUrl = async (splashScreenUrl: string) => {
+  const docRef = doc(db, 'settings', 'app_settings');
+  await setDoc(docRef, { splashScreenUrl }, { merge: true });
 };
 
 // --- About Us Settings ---
@@ -1303,4 +1350,306 @@ export const updateEmergencyContact = async (id: string, updates: Partial<Emerge
 
 export const deleteEmergencyContact = async (id: string) => {
   return await deleteDoc(doc(db, 'emergency_contacts', id));
+};
+
+// ==========================================
+// Tractor Schedule Operations
+// ==========================================
+
+export const subscribeTractorSchedule = (callback: (items: TractorScheduleItem[]) => void) => {
+  try {
+    const q = query(collection(db, 'tractor_schedule'), orderBy('order', 'asc'));
+    return onSnapshot(q, (snapshot) => {
+      const items = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as TractorScheduleItem));
+      callback(items);
+    }, (error) => {
+      console.error("Error subscribing to tractor schedule: ", error);
+      callback([]);
+    });
+  } catch (error) {
+    console.error("Error setting up tractor schedule subscription: ", error);
+    callback([]);
+    return () => {};
+  }
+};
+
+export const addTractorScheduleItem = async (item: Omit<TractorScheduleItem, 'id'>) => {
+  return await addDoc(collection(db, 'tractor_schedule'), item);
+};
+
+export const updateTractorScheduleItem = async (id: string, updates: Partial<TractorScheduleItem>) => {
+  const docRef = doc(db, 'tractor_schedule', id);
+  return await updateDoc(docRef, updates);
+};
+
+export const deleteTractorScheduleItem = async (id: string) => {
+  const docRef = doc(db, 'tractor_schedule', id);
+  return await deleteDoc(docRef);
+};
+
+export const subscribeTractorNotes = (callback: (notes: TractorScheduleNote[]) => void) => {
+  try {
+    const q = query(collection(db, 'tractor_notes'), orderBy('order', 'asc'));
+    return onSnapshot(q, (snapshot) => {
+      const notes = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as TractorScheduleNote));
+      callback(notes);
+    }, (error) => {
+      console.error("Error subscribing to tractor notes: ", error);
+      callback([]);
+    });
+  } catch (error) {
+    console.error("Error setting up tractor notes subscription: ", error);
+    callback([]);
+    return () => {};
+  }
+};
+
+export const addTractorNote = async (note: Omit<TractorScheduleNote, 'id'>) => {
+  return await addDoc(collection(db, 'tractor_notes'), note);
+};
+
+export const updateTractorNote = async (id: string, updates: Partial<TractorScheduleNote>) => {
+  const docRef = doc(db, 'tractor_notes', id);
+  return await updateDoc(docRef, updates);
+};
+
+export const deleteTractorNote = async (id: string) => {
+  const docRef = doc(db, 'tractor_notes', id);
+  return await deleteDoc(docRef);
+};
+
+// ============================================
+// EVENTS CRUD OPERATIONS
+// ============================================
+
+import { EventItem } from '../types';
+
+export const subscribeEvents = (callback: (events: EventItem[]) => void) => {
+  try {
+    const q = query(collection(db, 'events'), orderBy('createdAt', 'desc'));
+    return onSnapshot(q, (snapshot) => {
+      const items = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as EventItem));
+      callback(items);
+    }, (error) => {
+      console.error("Error subscribing to events: ", error);
+      callback([]);
+    });
+  } catch (error) {
+    console.error("Error setting up events subscription: ", error);
+    callback([]);
+    return () => {};
+  }
+};
+
+export const addEvent = async (event: Omit<EventItem, 'id' | 'createdAt'>) => {
+  return await addDoc(collection(db, 'events'), {
+    ...event,
+    createdAt: new Date().toISOString()
+  });
+};
+
+export const updateEvent = async (id: string, updates: Partial<EventItem>) => {
+  const docRef = doc(db, 'events', id);
+  return await updateDoc(docRef, updates);
+};
+
+export const deleteEvent = async (id: string) => {
+  const docRef = doc(db, 'events', id);
+  return await deleteDoc(docRef);
+};
+
+// ============================================
+// APP NOTIFICATIONS CRUD OPERATIONS
+// ============================================
+
+import { AppNotification } from '../types';
+
+export const subscribeAppNotifications = (callback: (notifications: AppNotification[]) => void) => {
+  try {
+    const q = query(collection(db, 'notifications'), orderBy('createdAt', 'desc'));
+    return onSnapshot(q, (snapshot) => {
+      const items = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as AppNotification));
+      callback(items);
+    }, (error) => {
+      console.error("Error subscribing to notifications: ", error);
+      callback([]);
+    });
+  } catch (error) {
+    console.error("Error setting up notifications subscription: ", error);
+    callback([]);
+    return () => {};
+  }
+};
+
+export const addAppNotification = async (notification: Omit<AppNotification, 'id' | 'createdAt'>) => {
+  return await addDoc(collection(db, 'notifications'), {
+    ...notification,
+    createdAt: new Date().toISOString()
+  });
+};
+
+export const updateAppNotification = async (id: string, updates: Partial<AppNotification>) => {
+  const docRef = doc(db, 'notifications', id);
+  return await updateDoc(docRef, updates);
+};
+
+export const deleteAppNotification = async (id: string) => {
+  const docRef = doc(db, 'notifications', id);
+  return await deleteDoc(docRef);
+};
+
+// ============================================
+// PUSH NOTIFICATIONS API
+// ============================================
+
+export const savePushToken = async (token: string) => {
+  if (!token) return;
+  try {
+    const docRef = doc(db, 'pushTokens', token);
+    await setDoc(docRef, {
+      token,
+      createdAt: new Date().toISOString()
+    }, { merge: true });
+  } catch (error) {
+    console.error("Error saving push token:", error);
+  }
+};
+
+export const getAllPushTokens = async (): Promise<string[]> => {
+  try {
+    const querySnapshot = await getDocs(collection(db, 'pushTokens'));
+    return querySnapshot.docs.map(doc => doc.data().token);
+  } catch (error) {
+    console.error("Error getting push tokens:", error);
+    return [];
+  }
+};
+
+export const sendPushNotification = async (title: string, body: string, data = {}) => {
+  try {
+    const tokens = await getAllPushTokens();
+    if (tokens.length === 0) return;
+
+    const message = {
+      to: tokens,
+      sound: 'default',
+      title,
+      body,
+      data,
+    };
+
+    await fetch('https://exp.host/--/api/v2/push/send', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Accept-encoding': 'gzip, deflate',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(message),
+    });
+  } catch (error) {
+    console.error("Error sending push notification:", error);
+  }
+};
+
+export const subscribeDashboardStats = (onUpdate: (stats: Record<string, number>) => void) => {
+  const stats = {
+    unified_reports: 0,
+    suggestions: 0,
+    water_faults: 0,
+    electricity_faults: 0,
+    cleanliness: 0,
+    municipality_questions: 0,
+    humanitarian_reports: 0,
+    app_installs: 0,
+  };
+
+  const unsubs: (() => void)[] = [];
+
+  const updateStats = () => {
+    onUpdate({ ...stats });
+  };
+
+  try {
+    // 1. Unified Reports (Complaints) - 'pending'
+    const qComplaints = query(collection(db, 'complaints'), where('status', '==', 'pending'));
+    unsubs.push(onSnapshot(qComplaints, (snap) => {
+      // we'll accumulate complaints and violations together in the UI, or just store complaints count here and violations count in another variable
+      stats.unified_reports = snap.size; 
+      updateStats();
+    }));
+
+    // 2. Suggestions - 'pending'
+    const qSuggestions = query(collection(db, 'suggestions'), where('status', '==', 'pending'));
+    unsubs.push(onSnapshot(qSuggestions, (snap) => {
+      stats.suggestions = snap.size;
+      updateStats();
+    }));
+
+    // 3. Water Faults - 'ongoing'
+    const qWaterFaults = query(collection(db, 'water_faults'), where('status', '==', 'ongoing'));
+    unsubs.push(onSnapshot(qWaterFaults, (snap) => {
+      stats.water_faults = snap.size;
+      updateStats();
+    }));
+
+    // 4. Electricity Faults - 'ongoing'
+    const qElecFaults = query(collection(db, 'electricity_faults'), where('status', '==', 'ongoing'));
+    unsubs.push(onSnapshot(qElecFaults, (snap) => {
+      stats.electricity_faults = snap.size;
+      updateStats();
+    }));
+
+    // 5. Cleanliness - 'pending'
+    const qClean = query(collection(db, 'cleanliness'), where('status', '==', 'pending'));
+    unsubs.push(onSnapshot(qClean, (snap) => {
+      stats.cleanliness = snap.size;
+      updateStats();
+    }));
+
+    // 6. Municipality Questions - 'pending'
+    const qQuestions = query(collection(db, 'municipalityQuestions'), where('status', '==', 'pending'));
+    unsubs.push(onSnapshot(qQuestions, (snap) => {
+      stats.municipality_questions = snap.size;
+      updateStats();
+    }));
+
+    // 7. Humanitarian Reports - 'pending'
+    const qHumanitarian = query(collection(db, 'humanitarian_reports'), where('status', '==', 'pending'));
+    unsubs.push(onSnapshot(qHumanitarian, (snap) => {
+      stats.humanitarian_reports = snap.size;
+      updateStats();
+    }));
+
+    // 8. App Installs - All
+    const qInstalls = collection(db, 'app_installs');
+    unsubs.push(onSnapshot(qInstalls, (snap) => {
+      stats.app_installs = snap.size;
+      updateStats();
+    }));
+  } catch (error) {
+    console.error("Error setting up dashboard stats:", error);
+  }
+
+  return () => {
+    unsubs.forEach(unsub => unsub());
+  };
+};
+
+// -- App Installs Tracking -- //
+export const registerAppInstall = async () => {
+  try {
+    const hasInstalled = await AsyncStorage.getItem('@app_install_registered');
+    if (!hasInstalled) {
+      // Register device install
+      await addDoc(collection(db, 'app_installs'), {
+        installedAt: serverTimestamp(),
+        platform: 'android'
+      });
+      await AsyncStorage.setItem('@app_install_registered', 'true');
+      console.log("App install registered successfully");
+    }
+  } catch (error) {
+    console.error("Error registering app install:", error);
+  }
 };

@@ -117,14 +117,14 @@ export const WaterScheduleScreen: React.FC = () => {
       renderItem={({ item }) => (
         <View style={[styles.faultCard, SHADOWS.medium]}>
           <View style={styles.faultHeader}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1, marginRight: 12 }}>
+              <Ionicons name="warning-outline" size={18} color="#E11D48" style={{ marginLeft: 6 }} />
+              <Text style={styles.faultTitle} numberOfLines={2}>{item.title}</Text>
+            </View>
             <View style={[styles.faultStatus, { backgroundColor: item.status === 'resolved' ? '#D1FAE5' : '#FFE4E6' }]}>
               <Text style={[styles.faultStatusText, { color: item.status === 'resolved' ? '#059669' : '#E11D48' }]}>
                 {item.status === 'resolved' ? 'تم الإصلاح' : 'جاري الإصلاح'}
               </Text>
-            </View>
-            <View style={{ flexDirection: 'row-reverse', alignItems: 'center' }}>
-              <Ionicons name="warning-outline" size={18} color="#E11D48" style={{ marginLeft: 6 }} />
-              <Text style={styles.faultTitle}>{item.title}</Text>
             </View>
           </View>
 
@@ -289,7 +289,7 @@ const styles = StyleSheet.create({
     borderRightColor: COLORS.primary,
   },
   cardHeader: {
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 12,
@@ -298,7 +298,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '800',
     color: COLORS.textPrimary,
-    textAlign: 'right',
+    textAlign: 'left',
   },
   timeGridVertical: {
     backgroundColor: COLORS.inputBg,
@@ -307,7 +307,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   timeRow: {
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
     paddingVertical: 4,
@@ -320,7 +320,7 @@ const styles = StyleSheet.create({
   timeLabel: {
     fontSize: 12,
     color: COLORS.textMuted,
-    textAlign: 'right',
+    textAlign: 'left',
     marginLeft: 6,
   },
   timeVal: {
@@ -334,7 +334,7 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
   },
   notesBox: {
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'flex-start',
     marginTop: 4,
     backgroundColor: '#F8FAFC',
@@ -347,14 +347,14 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '700',
     color: '#64748B',
-    textAlign: 'right',
+    textAlign: 'left',
     marginLeft: 6,
     width: 65,
   },
   notesText: {
     fontSize: 12,
     color: COLORS.textSecondary,
-    textAlign: 'right',
+    textAlign: 'left',
     flex: 1,
   },
   faultCard: {
@@ -366,7 +366,7 @@ const styles = StyleSheet.create({
     borderRightColor: '#E11D48',
   },
   faultHeader: {
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 8,
@@ -375,7 +375,8 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: '800',
     color: COLORS.textPrimary,
-    textAlign: 'right',
+    textAlign: 'left',
+    flex: 1,
   },
   faultStatus: {
     paddingHorizontal: 8,
@@ -389,7 +390,7 @@ const styles = StyleSheet.create({
   faultDesc: {
     fontSize: 13,
     color: COLORS.textSecondary,
-    textAlign: 'right',
+    textAlign: 'left',
     marginBottom: 12,
     lineHeight: 18,
   },
@@ -402,21 +403,21 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   faultDetailRow: {
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'flex-start',
   },
   reasonLabel: {
     fontSize: 12,
     fontWeight: '700',
     color: '#64748B',
-    textAlign: 'right',
+    textAlign: 'left',
     marginLeft: 6,
     width: 75,
   },
   reasonText: {
     fontSize: 13,
     color: COLORS.textPrimary,
-    textAlign: 'right',
+    textAlign: 'left',
     flex: 1,
   },
   faultDate: {
